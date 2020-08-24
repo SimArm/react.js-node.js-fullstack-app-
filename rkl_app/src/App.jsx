@@ -5,9 +5,9 @@ import NewDataForm from './Components/NewDataForm/NewDataForm';
 
 function App() {
   return (
-    <div className="App">
-      < DataTable/>
+    <div className="app">
       < NewDataForm/>
+      < DataTable/>  
     </div>
   );
 }

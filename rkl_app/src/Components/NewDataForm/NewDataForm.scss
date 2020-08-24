@@ -1,0 +1,37 @@
+.newDataWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    div {
+        width: 40vw;
+        display: flex;
+        justify-content: space-between;
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input {
+            margin: 2px;
+            width: calc(100% - 80px);
+            height: 25px;
+        }
+    }
+    button {
+        font-size: 18px;
+        margin-top: 2px;
+        width: 20vw;
+        height: 25px;
+        background-color: white;
+        color: black;
+        border: 2px solid;
+        box-shadow: none;
+        border-color: rgb(89, 194, 89);
+    }
+    button:hover{
+        cursor: pointer;
+        background-color: rgb(89, 194, 89); 
+        color: white;
+    }
+}
