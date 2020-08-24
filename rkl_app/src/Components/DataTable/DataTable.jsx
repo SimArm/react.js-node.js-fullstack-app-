@@ -1,0 +1,46 @@
+import React from 'react';
+import "./DataTable.scss";
+import DataRow from '../DataRow/DataRow';
+
+const DataTable = () => {
+    const Data = [];
+
+    return (
+        <div className="dataTable">
+            <tr className="tableHeader">
+                <th>Data</th>
+                <th>Nr.</th>
+                <th>Skyrius</th>
+                <th>Skubus ar Planinis</th>
+                <th>Palatos nr.</th>
+                <th>Pacientas</th>
+                <th>Kviečiantysis gyd.</th>
+                <th>Specialistas</th>
+                <th>Priežastis</th>
+                <th>Perdavimo laikas</th>
+                <th>Priemė</th>
+            </tr>
+            { Data.map((record) => {
+                    return (
+                        < DataRow 
+                            Time = {record.Time}
+                            ID = {record.ID}
+                            Department = {record.Department}
+                            Urgency = {record.Urgency}
+                            Room = {record.Room}
+                            Patient = {record.Patient}
+                            Doctor = {record.Doctor}
+                            Specialist = {record.Specialist}
+                            Reason = {record.Reason}
+                            PassTime = {record.PassTime}
+                            AcceptBy = {record.AcceptBy}
+                        />
+                    );
+                })
+            }
+
+        </div>
+    );
+}
+
+export default DataTable;
