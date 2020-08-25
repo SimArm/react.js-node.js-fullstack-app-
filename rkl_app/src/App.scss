@@ -1,9 +1,31 @@
-.app {
+.wrapper {
     margin-right: auto;
     margin-left:  auto; 
     
-    max-width: 1260px; // 960px ? 
+    max-width: 1260px;
 
     padding-right: 10px;
     padding-left:  10px; 
+}
+.nav {
+    width: 100%;
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        li {
+            margin: 0 10px;
+            a {
+                padding: 14px 0;
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+}
+.activeNav {
+    border-bottom: 3px solid black;
+}
+.contentWrapper {
+    width: 100%;
 }

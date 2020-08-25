@@ -1,0 +1,38 @@
+.newDataWrapper form{
+    max-width: 1260px;
+    display: flex;
+    align-items: space-between;
+    justify-content: space-between;
+    flex-flow: row;
+    div {
+        display: flex;
+        flex-flow: column;
+        width: auto;
+        label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input {
+            margin: 2px;
+            height: 25px;
+            width: auto;
+        }
+    }
+    button {
+        font-size: 18px;
+        margin-top: 2px;
+        width: auto;
+        height: 25px;
+        background-color: white;
+        color: black;
+        border: 2px solid;
+        box-shadow: none;
+        border-color: rgb(89, 194, 89);
+    }
+    button:hover{
+        cursor: pointer;
+        background-color: rgb(89, 194, 89); 
+        color: white;
+    }
+}
