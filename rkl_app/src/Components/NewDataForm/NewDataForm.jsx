@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import "./NewDataForm.scss";
 
+import setData from "../../Commands/testingData";
+import getData from "../../Commands/testingGet";
+
 const NewDataForm = () => {
 
     const [timeValue, setTime] = useState('');
     const [departmentValue, setDepartment] = useState('');
-    const [urgencyValue, setUrgency] = useState('');
+    const [urgencyValue, setUrgency] = useState('Skubus');
     const [roomValue, setRoom] = useState('');
     const [patientValue, setPatient] = useState('');
     const [doctorValue, setDoctor] = useState('');
@@ -66,7 +69,10 @@ const NewDataForm = () => {
 
     const onSave = () => {
         const record = {Time: timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-         //    need code to save record
+        let recordArray = getData() || [];
+        recordArray.push(record);
+        setData(recordArray);
+        console.log('issaugota');
     }
 
     const currentTime = () => {

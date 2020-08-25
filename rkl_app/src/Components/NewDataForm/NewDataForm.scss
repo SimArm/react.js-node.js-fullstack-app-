@@ -2,11 +2,13 @@
     max-width: 1260px;
     display: flex;
     align-items: space-between;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-flow: row;
+    padding: 10px 0;
     div {
         display: flex;
         flex-flow: column;
+        justify-content: space-between;
         width: auto;
         label {
             display: flex;
@@ -16,7 +18,12 @@
         input {
             margin: 2px;
             height: 25px;
-            width: auto;
+            max-width: 114px;
+        }
+        select {
+            margin: 2px;
+            height: 25px;
+            max-width: 114px;
         }
     }
     button {

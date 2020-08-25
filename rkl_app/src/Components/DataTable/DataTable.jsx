@@ -2,8 +2,8 @@ import React from 'react';
 import "./DataTable.scss";
 import DataRow from '../DataRow/DataRow';
 
-const DataTable = ({disabled}) => {
-    const Data = [{Time: '16:11', ID: 1, Department: 'administracija', Urgency: "Skubus", Room: 112, Patient: 'Petras', Doctor: "Petraitis", Specialist: "Doct", Reason: "testingdata", PassTime: '16:12', AcceptBy: "me"},{Time: '16:11', ID: 1, Department: 'administracija', Urgency: "Skubus", Room: 112, Patient: 'Petras', Doctor: "Petraitis", Specialist: "Doct", Reason: "testingdata", PassTime: '16:12', AcceptBy: "me"},{Time: '16:11', ID: 1, Department: 'administracija', Urgency: "Skubus", Room: 112, Patient: 'Petras', Doctor: "Petraitis", Specialist: "Doct", Reason: "testingdata", PassTime: '16:12', AcceptBy: "me"}];
+const DataTable = ({disabled, data}) => {
+    const Data = data || [];
 
     return (
         <div className="dataTable">

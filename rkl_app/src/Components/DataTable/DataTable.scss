@@ -1,6 +1,16 @@
 .dataTable {
-    max-width: 1260px;
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    tr {
+        width: 100%;
+        td {
+            width: 100px;
+        }
+    }
 }
 .is-disabled {
     display: none;
