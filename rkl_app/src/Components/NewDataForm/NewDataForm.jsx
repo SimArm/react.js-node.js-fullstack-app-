@@ -6,7 +6,14 @@ import getData from "../../Commands/testingGet";
 
 const NewDataForm = () => {
 
-    const [timeValue, setTime] = useState('');
+    const currentTime = () => {
+        let time = Date().slice(16,21);
+        return time;
+    }
+
+    let laikas = currentTime();
+
+    const [timeValue, setTime] = useState(laikas);
     const [departmentValue, setDepartment] = useState('');
     const [urgencyValue, setUrgency] = useState('Skubus');
     const [roomValue, setRoom] = useState('');
@@ -14,7 +21,7 @@ const NewDataForm = () => {
     const [doctorValue, setDoctor] = useState('');
     const [specialistValue, setSpecialist] = useState('');
     const [reasonValue, setReason] = useState('');
-    const [passTimeValue, setPassTime] = useState('');
+    const [passTimeValue, setPassTime] = useState(laikas);
     const [acceptByValue, setAcceptBy] = useState('');
 
     const updateTime = (event) => {
@@ -75,17 +82,12 @@ const NewDataForm = () => {
         console.log('issaugota');
     }
 
-    const currentTime = () => {
-        let time = Date().slice(16,21);
-        return time;
-    }
-
     return (
         <div className="newDataWrapper">
             <form>
                 <div>
                     <label htmlFor="Time">Laikas</label>
-                    <input type="time" placeholder={currentTime()} name="Time" id="Time" value={timeValue} onChange={updateTime}/>
+                    <input type="time" placeholder={currentTime()} name="Time" id="Time" value={timeValue || currentTime()} onChange={updateTime}/>
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
@@ -120,7 +122,7 @@ const NewDataForm = () => {
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
-                    <input type="time" placeholder={currentTime()} name="PassTime" id="PassTime" value={passTimeValue} onChange={updatePassTime}/>
+                    <input type="time" placeholder={currentTime()} name="PassTime" id="PassTime" value={passTimeValue || currentTime()} onChange={updatePassTime}/>
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
@@ -130,6 +132,7 @@ const NewDataForm = () => {
             </form>
         </div>
     );
+    
 }
 
 export default NewDataForm;
