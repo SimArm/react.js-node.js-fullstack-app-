@@ -1,7 +1,6 @@
 import React from "react";
 import "./Consultation.scss";
 
-import DataRow from "../DataRow/DataRow";
 import DataTable from "../DataTable/DataTable";
 import NewDataForm from "../NewDataForm/NewDataForm";
 
@@ -17,7 +16,6 @@ const Consultation = () => {
         <div>
             <NewDataForm />
             <DataTable disabled={false} data={data}/>
-            <DataRow />
         </div>
     );
 }

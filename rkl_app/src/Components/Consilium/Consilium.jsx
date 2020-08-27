@@ -1,7 +1,6 @@
 import React from "react";
 import "./Consilium.scss";
 
-import DataRow from "../DataRow/DataRow";
 import DataTable from "../DataTable/DataTable";
 import NewDataForm from "../NewDataForm/NewDataForm";
 
@@ -10,7 +9,6 @@ const Consilium = () => {
         <div>
             <NewDataForm />
             <DataTable disabled={true}/>
-            <DataRow />
         </div>
     );
 }
