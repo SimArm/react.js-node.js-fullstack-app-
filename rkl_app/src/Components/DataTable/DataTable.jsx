@@ -37,7 +37,7 @@ const DataTable = ({disabled, data}) => {
                         <th onClick={() => setSorting('ID')}>Nr.</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="contentBody">
                     {Data.sort(sortData(sorting)).map((record) => {
                             return (
                                 < DataRow 

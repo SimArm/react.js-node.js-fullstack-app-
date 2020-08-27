@@ -18,3 +18,7 @@ table{
 .is-disabled {
     display: none;
 }
+.contentBody {
+    height: 80vh;
+    overflow:auto;
+}
