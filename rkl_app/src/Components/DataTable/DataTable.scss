@@ -12,6 +12,9 @@ table{
         }
     }
 }
+.tableHeader th {
+    cursor: pointer;
+}
 .is-disabled {
     display: none;
 }

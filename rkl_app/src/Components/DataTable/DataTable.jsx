@@ -4,7 +4,7 @@ import DataRow from '../DataRow/DataRow';
 
 const DataTable = ({disabled, data}) => {
     
-    const [sorting, setSorting] = useState('Department');
+    const [sorting, setSorting] = useState('Time');
     const sortData = (property) => {
         var sortOrder = 1;
         if(property[0] === "-") {
@@ -25,7 +25,6 @@ const DataTable = ({disabled, data}) => {
                 <thead>
                     <tr className="tableHeader">
                         <th onClick={() => setSorting('Time')}>Data</th>
-                        <th onClick={() => setSorting('ID')}>Nr.</th>
                         <th onClick={() => setSorting('Department')}>Skyrius</th>
                         <th onClick={() => setSorting('Urgency')} className={disabled ? "is-disabled" : undefined}>Skubus ar Planinis</th>
                         <th onClick={() => setSorting('Room')}>Palatos nr.</th>
@@ -35,6 +34,7 @@ const DataTable = ({disabled, data}) => {
                         <th onClick={() => setSorting('Reason')}>Priežastis</th>
                         <th onClick={() => setSorting('PassTime')}>Perdavimo laikas</th>
                         <th onClick={() => setSorting('AcceptBy')}>Priemė</th>
+                        <th onClick={() => setSorting('ID')}>Nr.</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,6 @@ const DataTable = ({disabled, data}) => {
                                 < DataRow 
                                     isDisabled = {disabled}
                                     Time = {record.Time}
-                                    ID = {record.ID}
                                     Department = {record.Department}
                                     Urgency = {record.Urgency}
                                     Room = {record.Room}
@@ -53,6 +52,7 @@ const DataTable = ({disabled, data}) => {
                                     Reason = {record.Reason}
                                     PassTime = {record.PassTime}
                                     AcceptBy = {record.AcceptBy}
+                                    ID = {record.ID}
                                 />
                             );
                         })

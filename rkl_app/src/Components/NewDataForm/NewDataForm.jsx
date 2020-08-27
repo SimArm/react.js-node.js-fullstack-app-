@@ -12,6 +12,10 @@ const NewDataForm = () => {
     }
 
     let laikas = currentTime();
+    const recordsData = getData() || [];
+    const lastRecord = recordsData.slice(-1)[0];
+
+    const currentDate = Date().slice(4,15);
 
     const [timeValue, setTime] = useState(laikas);
     const [departmentValue, setDepartment] = useState('');
@@ -75,7 +79,7 @@ const NewDataForm = () => {
     }
 
     const onSave = () => {
-        const record = {Time: timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let recordArray = getData() || [];
         recordArray.push(record);
         setData(recordArray);
@@ -91,7 +95,7 @@ const NewDataForm = () => {
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
-                    <input type="text" placeholder="Department" name="Department" id="Department" value={departmentValue} onChange={updateDepartment}/>
+                    <input type="text" placeholder="Skyrius" name="Department" id="Department" value={departmentValue} onChange={updateDepartment}/>
                 </div>
                 <div>
                     <label htmlFor="Urgency">Skuba</label>
@@ -114,7 +118,7 @@ const NewDataForm = () => {
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
-                    <input type="text" placeholder="terapiautas" name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist}/>
+                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist}/>
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
