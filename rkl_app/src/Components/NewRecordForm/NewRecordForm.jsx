@@ -5,6 +5,7 @@ import setData from "../../Commands/testingData";
 import getData from "../../Commands/testingGet";
 import setConsiliumData from "../../Commands/testingConsiliumData";
 import getConsiliumData from "../../Commands/testingConsiliumGet";
+import setConsultationData from '../../Commands/connect';
 
 const NewRecordForm = ({ConsiliumTab}) => {
 
@@ -80,11 +81,23 @@ const NewRecordForm = ({ConsiliumTab}) => {
         setAcceptBy(value);
     }
 
+    const validation = () => { 
+        for (let field in document.querySelector('input')) {
+            if (field) {
+                field.value = field.value.trim();
+                if (isNaN(parseFloat(field.value))) {
+                    return alert("Tuscias laukelis");
+                }
+            }               
+        }
+    }
+
     const onSaveConsultation = () => {
+        validation();
         const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let recordArray = getData() || [];
         recordArray.push(record);
-        setData(recordArray);
+        setData(recordArray); // change for servers
     }
 
     const onSaveConsilium = () => {
@@ -103,7 +116,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
-                    <input type="text" placeholder="Skyrius" name="Department" id="Department" value={departmentValue} onChange={updateDepartment}/>
+                    <input type="text" placeholder="Skyrius" name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
                 </div>
                 <div>
                     <label htmlFor="Urgency">Skuba</label>
@@ -114,23 +127,23 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="Room">Palata:</label>
-                    <input type="text" placeholder="Palata" name="Room" id="Room" value={roomValue} onChange={updateRoom}/>
+                    <input type="text" placeholder="Palata" name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
-                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient}/>
+                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient} required/>
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
-                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" value={doctorValue} onChange={updateDoctor}/>
+                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" value={doctorValue} onChange={updateDoctor} required/>
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
-                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist}/>
+                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
-                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" value={reasonValue} onChange={updateReason}/>
+                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" value={reasonValue} onChange={updateReason} required/>
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
@@ -138,7 +151,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
-                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy}/>
+                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
                 </div>
                 <button onClick={ConsiliumTab ? onSaveConsilium : onSaveConsultation}>Saugoti</button>
             </form>

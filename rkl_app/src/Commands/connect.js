@@ -1,9 +1,10 @@
-// const mariadb = require('mariadb/callback');
+// const mariadb = require('mariadb');
 
 // const conn = mariadb.createConnection({
-//       host: 'http://localhost:3000/', 
-//       user:'root',
-//       password: ''
+//       host: 'localhost', 
+//       user:'ligtre',
+//       password: 'kometa',
+//       connectionLimit: 5
 //     });
 
 
@@ -56,3 +57,5 @@
 //     }
 //     })
 // }
+
+// export default setConsultationData;

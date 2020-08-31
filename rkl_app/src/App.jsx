@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
 
 import "./App.scss";
 import "./bootstrap-grid.min.css";
@@ -25,6 +25,9 @@ const App = () => {
         </nav>
         <div className="contentWrapper">
           <Switch>
+            <Route exact path="/">
+              <Redirect to="/Konsultacijos" />
+            </Route>
             <Route path="/Konsultacijos" exact strict>
               <Consultation />
             </Route>
@@ -35,6 +38,7 @@ const App = () => {
         </div>
       </div>
     </Router>
+    
   );
 }
 
