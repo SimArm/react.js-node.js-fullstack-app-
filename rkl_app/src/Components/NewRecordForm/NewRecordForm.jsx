@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import "./NewDataForm.scss";
+import "./NewRecordForm.scss";
 
 import setData from "../../Commands/testingData";
 import getData from "../../Commands/testingGet";
+import setConsiliumData from "../../Commands/testingConsiliumData";
+import getConsiliumData from "../../Commands/testingConsiliumGet";
 
-const NewDataForm = () => {
+const NewRecordForm = ({ConsiliumTab}) => {
 
     const currentTime = () => {
         let time = Date().slice(16,21);
@@ -13,9 +15,9 @@ const NewDataForm = () => {
 
     let laikas = currentTime();
     const recordsData = getData() || [];
-    const lastRecord = recordsData.slice(-1)[0];
+    // const lastRecord = recordsData.slice(-1)[0]; paskutinis record from DB
 
-    const currentDate = Date().slice(4,15);
+    const currentDate = Date().slice(4,15);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
     const [timeValue, setTime] = useState(laikas);
     const [departmentValue, setDepartment] = useState('');
@@ -78,16 +80,22 @@ const NewDataForm = () => {
         setAcceptBy(value);
     }
 
-    const onSave = () => {
+    const onSaveConsultation = () => {
         const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let recordArray = getData() || [];
         recordArray.push(record);
         setData(recordArray);
-        console.log('issaugota');
+    }
+
+    const onSaveConsilium = () => {
+        const record = {Time: currentDate + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        let consiliumRecordArray = getConsiliumData() || [];
+        consiliumRecordArray.push(record);
+        setConsiliumData(consiliumRecordArray);
     }
 
     return (
-        <div className="newDataWrapper">
+        <div className="newRecordWrapper">
             <form>
                 <div>
                     <label htmlFor="Time">Laikas</label>
@@ -132,11 +140,11 @@ const NewDataForm = () => {
                     <label htmlFor="AcceptBy">Prieme:</label>
                     <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy}/>
                 </div>
-                <button onClick={onSave}>Saugoti</button>
+                <button onClick={ConsiliumTab ? onSaveConsilium : onSaveConsultation}>Saugoti</button>
             </form>
         </div>
     );
     
 }
 
-export default NewDataForm;
+export default NewRecordForm;

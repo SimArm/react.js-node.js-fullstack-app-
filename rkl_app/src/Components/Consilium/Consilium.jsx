@@ -1,14 +1,18 @@
 import React from "react";
 import "./Consilium.scss";
 
-import DataTable from "../DataTable/DataTable";
-import NewDataForm from "../NewDataForm/NewDataForm";
+import MainContent from "../MainContent/MainContent";
+import NewRecordForm from "../NewRecordForm/NewRecordForm";
+
+import getConsiliumData from "../../Commands/testingConsiliumGet";
 
 const Consilium = () => {
+    const data = getConsiliumData() || [];
+
     return (
         <div>
-            <NewDataForm />
-            <DataTable disabled={true}/>
+            <NewRecordForm ConsiliumTab={true}/>
+            <MainContent disabled={true} data={data} Consilium={true}/>
         </div>
     );
 }
