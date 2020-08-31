@@ -81,22 +81,13 @@ const NewRecordForm = ({ConsiliumTab}) => {
         setAcceptBy(value);
     }
 
-    const validation = () => { 
-        for (let field in document.querySelector('input')) {
-            if (field) {
-                field.value = field.value.trim();
-                if (isNaN(parseFloat(field.value))) {
-                    return alert("Tuscias laukelis");
-                }
-            }               
-        }
-    }
-
-    const onSaveConsultation = () => {
-        validation();
+    const onSaveConsultation = () => {                                                                                                                          
         const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let recordArray = getData() || [];
-        recordArray.push(record);
+        // for( let key in record) {
+        //     key !== null || key !== '' && console.log(record);
+        // }
+        recordArray.push(record)
         setData(recordArray); // change for servers
     }
 
