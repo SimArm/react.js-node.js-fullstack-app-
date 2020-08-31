@@ -4,6 +4,7 @@
 //       host: 'localhost', 
 //       user:'ligtre',
 //       password: 'kometa',
+//       database: 'ligtreDB',
 //       connectionLimit: 5
 //     });
 
