@@ -84,17 +84,14 @@ const NewRecordForm = ({ConsiliumTab}) => {
     const onSaveConsultation = () => {                                                                                                                          
         const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let recordArray = getData() || [];
-        // for( let key in record) {
-        //     key !== null || key !== '' && console.log(record);
-        // }
-        recordArray.push(record)
+        Object.values(record).every(x => (x !== null && x !== '')) && recordArray.push(record);
         setData(recordArray); // change for servers
     }
 
     const onSaveConsilium = () => {
         const record = {Time: currentDate + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         let consiliumRecordArray = getConsiliumData() || [];
-        consiliumRecordArray.push(record);
+        Object.values(record).every(x => (x !== null && x !== '')) && consiliumRecordArray.push(record);
         setConsiliumData(consiliumRecordArray);
     }
 
