@@ -23,3 +23,6 @@
 .col-id {
     width: 45px;
 }
+.col-consilium {
+    width: calc((100% - 45px)/9);
+}

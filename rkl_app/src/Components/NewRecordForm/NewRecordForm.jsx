@@ -106,7 +106,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
                     <label htmlFor="Department">Skyrius</label>
                     <input type="text" placeholder="Skyrius" name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
                 </div>
-                <div>
+                <div className={ConsiliumTab && 'disabled'}>
                     <label htmlFor="Urgency">Skuba</label>
                     <select id="Urgency" name="Urgency" value={urgencyValue} onChange={updateUrgency}>
                         <option value="Skubus">Skubus</option>

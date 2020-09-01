@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react
 
 import "./App.scss";
 import "./CssLib/bootstrap-grid.min.css";
-import "./CssLib/bootstrap-toggle.min.css";
-//import "./CssLib/bootstrap-toggle.min.js";
 
 import Consultation from "./Components/Consultation/Consultation";
 import Consilium from "./Components/Consilium/Consilium";

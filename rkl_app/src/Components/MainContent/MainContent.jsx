@@ -31,16 +31,16 @@ const MainContent = ({disabled, data, Consilium}) => {
             <div className="tableWrapper">
                 <div>
                     <div className="row tableHeader">
-                        <div className="col-custom" onClick={() => setSorting('Time')}>Data</div>
-                        <div className="col-custom" onClick={() => setSorting('Department')}>Skyrius</div>
-                        <div className={disabled ? "col-custom is-disabled" : 'col-custom' } onClick={() => setSorting('Urgency')}>Skubus ar Planinis</div>
-                        <div className="col-custom" onClick={() => setSorting('Room')}>Palatos nr.</div>
-                        <div className="col-custom" onClick={() => setSorting('Patient')}>Pacientas</div>
-                        <div className={disabled ? 'col-custom' : 'col-custom'} onClick={() => setSorting('Doctor')}>Kviečiantysis gyd.</div>
-                        <div className="col-custom" onClick={() => setSorting('Specialist')}>Specialistas</div>
-                        <div className="col-custom" onClick={() => setSorting('Reason')}>Priežastis</div>
-                        <div className="col-custom" onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
-                        <div className="col-custom" onClick={() => setSorting('AcceptBy')}>Priemė</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Time')}>Data</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Department')}>Skyrius</div>
+                        <div className={disabled ? "is-disabled" : 'col-custom' } onClick={() => setSorting('Urgency')}>Skubus ar Planinis</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Room')}>Palatos nr.</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Patient')}>Pacientas</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Doctor')}>Kviečiantysis gyd.</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Specialist')}>Specialistas</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Reason')}>Priežastis</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
+                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('AcceptBy')}>Priemė</div>
                         <div className="col-id" onClick={() => setSorting('ID')}>Nr.</div>
                     </div>
                 </div>
