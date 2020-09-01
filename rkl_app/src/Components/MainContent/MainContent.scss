@@ -9,15 +9,21 @@
     width: 100%;
     padding: 0 5px;
 }
-.tableHeader div {
-    cursor: pointer;
-    font-weight: bold;
+.tableHeader {
+    width: 100%;
+    div {
+        cursor: pointer;
+        font-weight: bold;
+    }
 }
 .is-disabled {
     display: none;
 }
 .contentBody {
-    height: 75vh;
+    height: 70vh;
     overflow:auto;
     background-color: white;
+}
+.row {
+    margin: 0 0 0 0;
 }

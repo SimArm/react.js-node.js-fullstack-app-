@@ -111,7 +111,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
                     <select id="Urgency" name="Urgency" value={urgencyValue} onChange={updateUrgency}>
                         <option value="Skubus">Skubus</option>
                         <option value="Planinis">Planinis</option>
-                    </select>    
+                    </select>
                 </div>
                 <div>
                     <label htmlFor="Room">Palata:</label>

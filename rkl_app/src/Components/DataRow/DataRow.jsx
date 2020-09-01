@@ -10,16 +10,16 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
             <div className="col-1">
                 {`${getMonthFromString(Time.slice(0,4))}/${Time.slice(4,7)} `}{Time.slice(11,17)}
             </div>
-            <div className="col-1">{Department}</div>
-            <div className={isDisabled ? 'col-1 is-disabled' : 'col-1'}>{Urgency}</div>
-            <div className="col-1">{Room}</div>
-            <div className="col-1">{Patient}</div>
-            <div className={isDisabled ? 'col-2' : 'col-1'}>{Doctor}</div>
-            <div className="col-1">{Specialist}</div>
-            <div className="col-2">{Reason}</div>
-            <div className="col-1">{PassTime}</div>
-            <div className="col-1">{AcceptBy}</div>
-            <div className="col-1">{ID || 1}</div>
+            <div className="col-custom">{Department}</div>
+            <div className={isDisabled ? 'col-custom is-disabled' : 'col-custom'}>{Urgency}</div>
+            <div className="col-custom">{Room}</div>
+            <div className="col-custom">{Patient}</div>
+            <div className={isDisabled ? 'col-custom' : 'col-custom'}>{Doctor}</div>
+            <div className="col-custom">{Specialist}</div>
+            <div className="col-custom">{Reason}</div>
+            <div className="col-custom">{PassTime}</div>
+            <div className="col-custom">{AcceptBy}</div>
+            <div className="col-id">{ID || 1}</div>
         </div>
     );
 }

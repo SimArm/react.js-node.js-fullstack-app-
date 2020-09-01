@@ -62,7 +62,7 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
                 <input type="date" id="DateUntil" name="DateUntil" value={endingDate} onChange={updateEndingDate}/>
                 <input type="time" id="TimeUntil" name="TimeUntil" value={endingTime} onChange={updateEndingTime}/>
             </form>
-            <button onClick={ConsiliumTab ? onGetReport : onGetReport}>Gauti Ataskaitą</button> {/* Need to do seperate f-tions for seperate tab reports*/}
+            <button onClick={ConsiliumTab ? onGetReport : onGetReport}>Ataskaita</button> {/* Need to do seperate f-tions for seperate tab reports*/}
         </div>
     );
 }

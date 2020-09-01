@@ -3,4 +3,43 @@
     justify-content: flex-end;
     padding: 5px;
     width: auto;
+
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(164, 240, 240);
+    border-radius: 10px;
+}
+label {
+    font-size: 16px;
+}
+select {
+    padding: 1px;
+    margin: 2px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+input {
+    padding: 1px;
+    margin: 2px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+button {
+    font-size: 18px;
+    margin: auto 0;
+    width: auto;
+    height: 32px;
+    background-color: white;
+    color: black;
+    border: 2px solid;
+    box-shadow: none;
+    border-color: rgb(129, 226, 129);
+    border-radius: 5px;
+}
+button:hover{
+    cursor: pointer;
+    background-color: rgb(129, 226, 129);
+    color: white;
 }

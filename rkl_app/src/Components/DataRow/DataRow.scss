@@ -3,11 +3,23 @@
 }
 .tablerow {
     margin: 5px 0;
+    border-bottom: 1px rgba(163, 163, 163, 0.233) solid;
     div {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        flex-wrap: wrap;
         padding: 0 5px;
         // margin: 0 1px;
+        border-left: 1px solid rgb(228, 226, 226);
     }
 }
 .tablerow:hover {
     background-color: rgba(0, 0, 0, 0.13);
+}
+.col-custom {
+    width: calc((100% - 45px)/10);
+}
+.col-id {
+    width: 45px;
 }
