@@ -3,27 +3,39 @@ const express = require('express');
 const mariadb = require('mariadb');
 
 const app = express();
-const port = 8000;
-const table ='users';
+const port = 5001;
+const table ='Consultation';
 
 const pool = mariadb.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PWD,
-    database: process.env.MYSQL_DB,
+    host: 'localhost',
+    user: 'user',
+    password: 'pass',
+    database: 'ligtreDB',
+    connectionLimit: 5
 });
 
 app.listen(port, () => {
   console.log(`App server now listening to port ${port}`);
 });
 
-app.get('/api/users', (req, res) => {
-  console.log('woorrkss');
-  pool.query(`select * from ${table}`, (err, rows) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(rows);
-    }
-  });
+app.get('/', (req, res) => {
+    console.log('server works');
 });
+
+app.get('/con', (req, res) => {
+  pool.getConnection()
+  .then(conn => {
+    conn.query(`select * from ${table}`)
+    .then((rows) => {
+    console.log(rows);
+    })
+    .then((res) => {
+      console.log(res);
+      conn.end;
+    })
+    .catch(err => {
+     console.log(err);
+     conn.end;
+    });
+  });
+}); 

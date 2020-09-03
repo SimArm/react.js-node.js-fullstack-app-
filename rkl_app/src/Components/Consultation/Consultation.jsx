@@ -8,7 +8,7 @@ import getConsultationData from "../../Commands/testingGet";
 
 const Consultation = () => {
     //const data = getConsultationData();
-    const data = getConsultationData() || [];
+    const data = testingDB() || [];
 
     const testingDB = () => {
         fetch(`/api/users`)
@@ -18,7 +18,6 @@ const Consultation = () => {
 
     return (
         <div>
-            {testingDB()}
             <NewRecordForm />
             <MainContent disabled={false} data={data} ConsiliumTab={false}/>
         </div>
