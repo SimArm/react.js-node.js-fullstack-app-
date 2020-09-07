@@ -37,6 +37,9 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
 
     const onGetReport = () => {
         exportData(sorting,startingDate,startingTime,endingDate,endingTime);
+        fetch(`http://172.18.218.15:5001/consultation/report?sorting=${sorting}&startingDate=${startingDate}&startingTime=${startingTime}&endingDate=${endingDate}&endingTime=${endingTime}`)
+        .then((response) => response.json())
+        .catch(err => console.error(err));
     }
 
     return (

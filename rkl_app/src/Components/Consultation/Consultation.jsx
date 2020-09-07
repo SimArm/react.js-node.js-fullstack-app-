@@ -5,15 +5,17 @@ import MainContent from "../MainContent/MainContent";
 import NewRecordForm from "../NewRecordForm/NewRecordForm";
 
 const Consultation = () => {
-    const [data,setData] = useState([]);
-
+    const [data,setData] = useState('');
+ console.log('keep reloading');
     useEffect(() => {
-        (()=> {
-            fetch(`http://172.18.218.15:5001/consultation`)
-            .then((response) => response.json())
-            .then((response) => setData(response));
-        })();
-    }, [data]);
+        fetchData();
+    },[]);
+
+    const fetchData = () => {
+        fetch(`http://172.18.218.15:5001/consultation`)
+        .then((response) => response.json())
+        .then((data) => setData(data));
+    }
 
     return (
         <div>

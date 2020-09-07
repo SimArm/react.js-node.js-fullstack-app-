@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
 import "./NewRecordForm.scss";
 
-import setData from "../../Commands/testingData";
-import getData from "../../Commands/testingGet";
-import setConsiliumData from "../../Commands/testingConsiliumData";
-import getConsiliumData from "../../Commands/testingConsiliumGet";
-import setConsultationData from '../../Commands/connect';
-
 const NewRecordForm = ({ConsiliumTab}) => {
 
     const currentTime = () => {
@@ -15,8 +9,6 @@ const NewRecordForm = ({ConsiliumTab}) => {
     }
 
     let laikas = currentTime();
-    const recordsData = getData() || [];
-    // const lastRecord = recordsData.slice(-1)[0]; paskutinis record from DB
 
     const currentDate = Date().slice(4,15);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
@@ -83,16 +75,16 @@ const NewRecordForm = ({ConsiliumTab}) => {
 
     const onSaveConsultation = () => {                                                                                                                          
         const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        let recordArray = getData() || [];
-        Object.values(record).every(x => (x !== null && x !== '')) && recordArray.push(record);
-        setData(recordArray); // change for servers
+        Object.values(record).every(x => (x !== null && x !== '')) && 
+        fetch(`http://172.18.218.15:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
         const record = {Time: currentDate + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        let consiliumRecordArray = getConsiliumData() || [];
-        Object.values(record).every(x => (x !== null && x !== '')) && consiliumRecordArray.push(record);
-        setConsiliumData(consiliumRecordArray);
+        Object.values(record).every(x => (x !== null && x !== '')) && 
+        fetch(`http://172.18.218.15:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        .then(response => response.json()).catch(err => console.error(err));
     }
 
     return (

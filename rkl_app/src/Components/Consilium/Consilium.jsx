@@ -8,12 +8,14 @@ const Consilium = () => {
     const [data,setData] = useState([]);
 
     useEffect (() => {
-        (() => {
-            fetch(`http://172.18.218.15:5001/consilium`)
+        fetchData();
+    },[]);
+
+    const fetchData = () => {
+        fetch(`http://172.18.218.15:5001/consilium`)
             .then((response) => response.json())
             .then((response) => setData(response));
-        })();
-    }, [data]);
+    }
 
     return (
         <div>
