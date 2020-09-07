@@ -90,7 +90,9 @@ worksheet.columns = [
 
 app.get('/consultation/report', (req, res) => {
   const {sorting,startingDate,startingTime,endingDate,endingTime} =req.query;
-  const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time >= '${startingDate + startingTime}' AND Time <= '${endingDate + endingTime}' ORDER BY '${sorting}' DESC`;
+  console.log(startingDate,startingTime);
+
+  const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time >= '${databaseDateFormat(startingDate,startingTime)}' AND Time <= '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting} DESC`;
   pool.query(SELECT_CONSULT_WHERE)
     .then((rows) => {
       // async function sendWorkbook(workbook, response) { 
@@ -103,7 +105,7 @@ app.get('/consultation/report', (req, res) => {
       
       //   response.end();
       // }
-      // sendWorkbook(workbook1,res);
+      // sendWorkbook(workbook,rows);
       const excelRows = JSON.parse(JSON.stringify(rows));
       worksheet.addRows(excelRows);
       workbook.xlsx.writeFile("KonsultacijuAtaskaita.xlsx");
@@ -114,3 +116,10 @@ app.get('/consultation/report', (req, res) => {
 });  
 
 
+
+const databaseDateFormat = (date,time) => { 
+  const monthShortNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const fullDate = `${monthShortNames[parseInT(date.slice(5,7))]} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
+  return fullDate;
+}

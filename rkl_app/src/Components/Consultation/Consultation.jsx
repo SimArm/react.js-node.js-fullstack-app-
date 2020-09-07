@@ -6,7 +6,7 @@ import NewRecordForm from "../NewRecordForm/NewRecordForm";
 
 const Consultation = () => {
     const [data,setData] = useState('');
- console.log('keep reloading');
+
     useEffect(() => {
         fetchData();
     },[]);
