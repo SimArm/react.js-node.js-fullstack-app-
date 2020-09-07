@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Consilium.scss";
 
 import MainContent from "../MainContent/MainContent";
 import NewRecordForm from "../NewRecordForm/NewRecordForm";
 
-import getConsiliumData from "../../Commands/testingConsiliumGet";
-
 const Consilium = () => {
-    const data = getConsiliumData() || [];
+    const [data,setData] = useState([]);
+
+    useEffect (() => {
+        (() => {
+            fetch(`http://172.18.218.15:5001/consilium`)
+            .then((response) => response.json())
+            .then((response) => setData(response));
+        })();
+    }, [data]);
 
     return (
         <div>

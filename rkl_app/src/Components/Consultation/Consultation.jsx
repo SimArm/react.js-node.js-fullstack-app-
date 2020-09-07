@@ -1,20 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Consultation.scss";
 
 import MainContent from "../MainContent/MainContent";
 import NewRecordForm from "../NewRecordForm/NewRecordForm";
 
-import getConsultationData from "../../Commands/testingGet";
-
 const Consultation = () => {
-    //const data = getConsultationData();
-    const data = testingDB() || [];
+    const [data,setData] = useState([]);
 
-    const testingDB = () => {
-        fetch(`/api/users`)
-        .then((response) => response.json())
-        .then(users => console.log(users));
-    }
+    useEffect(() => {
+        (()=> {
+            fetch(`http://172.18.218.15:5001/consultation`)
+            .then((response) => response.json())
+            .then((response) => setData(response));
+        })();
+    }, [data]);
 
     return (
         <div>
