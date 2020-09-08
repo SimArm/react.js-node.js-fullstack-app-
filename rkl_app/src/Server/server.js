@@ -3,6 +3,7 @@ const express = require('../node_modules/express');
 const mariadb = require('../node_modules/mariadb');
 const cors = require('../node_modules/cors');
 const excel = require('../node_modules/exceljs');
+const tempfile = require('tempfile');
 
 const app = express();
 const port = 5001;
@@ -89,37 +90,29 @@ worksheet.columns = [
 ];
 
 app.get('/consultation/report', (req, res) => {
-  const {sorting,startingDate,startingTime,endingDate,endingTime} =req.query;
-  console.log(startingDate,startingTime);
+  const {sorting,startingDate,startingTime,endingDate,endingTime} = req.query;
+  const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting}`;
+   pool.query(SELECT_CONSULT_WHERE)
+  .then((rows) => {
 
-  const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time >= '${databaseDateFormat(startingDate,startingTime)}' AND Time <= '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting} DESC`;
-  pool.query(SELECT_CONSULT_WHERE)
-    .then((rows) => {
-      // async function sendWorkbook(workbook, response) { 
-      //   const fileName = 'KonsultacijuAtaskaita.xlsx';
-      
-      //   response.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      //   response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-      
-      //    await workbook.xlsx.write(response);
-      
-      //   response.end();
-      // }
-      // sendWorkbook(workbook,rows);
-      const excelRows = JSON.parse(JSON.stringify(rows));
-      worksheet.addRows(excelRows);
-      workbook.xlsx.writeFile("KonsultacijuAtaskaita.xlsx");
-    })
-    .catch(err => {
-    console.log(err);
-    })
+    const tempFilePath = tempfile('.xlsx');
+    const excelRows = JSON.parse(JSON.stringify(rows));
+
+    worksheet.addRows(excelRows);
+    workbook.xlsx.writeFile(tempFilePath).then(() => {
+      res.sendFile(tempFilePath, (err) => {
+        console.log('error downloading file: ' + err);
+      });
+    });
+  })
+  .catch(err => {
+  console.log(err);
+ })
 });  
-
-
 
 const databaseDateFormat = (date,time) => { 
   const monthShortNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const fullDate = `${monthShortNames[parseInT(date.slice(5,7))]} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
+  const fullDate = `${monthShortNames[parseInt(date.slice(5,7))]} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
   return fullDate;
 }

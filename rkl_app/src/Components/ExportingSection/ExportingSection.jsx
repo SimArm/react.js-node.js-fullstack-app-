@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import "./ExportingSection.scss";
-import exportData from '../../Commands/exporting';
 
 const ExportingSection = ({sortBy, ConsiliumTab}) => {
     
@@ -35,9 +34,14 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
         setSorting(value);
     }
 
-    const onGetReport = () => {
-        exportData(sorting,startingDate,startingTime,endingDate,endingTime);
+    const onGetConsultReport = () => {
         fetch(`http://172.18.218.15:5001/consultation/report?sorting=${sorting}&startingDate=${startingDate}&startingTime=${startingTime}&endingDate=${endingDate}&endingTime=${endingTime}`)
+        .then((response) => response.json())
+        .catch(err => console.error(err));
+    }
+
+    const onGetConsiliumReport = () => {
+        fetch(`http://172.18.218.15:5001/consilium/report?sorting=${sorting}&startingDate=${startingDate}&startingTime=${startingTime}&endingDate=${endingDate}&endingTime=${endingTime}`)
         .then((response) => response.json())
         .catch(err => console.error(err));
     }
@@ -65,7 +69,7 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
                 <input type="date" id="DateUntil" name="DateUntil" value={endingDate} onChange={updateEndingDate}/>
                 <input type="time" id="TimeUntil" name="TimeUntil" value={endingTime} onChange={updateEndingTime}/>
             </form>
-            <button onClick={ConsiliumTab ? onGetReport : onGetReport}>Ataskaita</button> {/* Need to do seperate f-tions for seperate tab reports*/}
+            <button onClick={ConsiliumTab ? onGetConsiliumReport : onGetConsultReport}>Ataskaita</button>
         </div>
     );
 }
