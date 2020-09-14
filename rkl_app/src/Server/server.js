@@ -108,37 +108,76 @@ app.get('/report', (req, res) => {
   ];
 
   reportsSheet.columns = [
+      {header:'Skyrius', key: 'Department',width: 20},
+      {header:'Kartai', key: 'depTimes',width: 10},
       {header:'Palatos', key: 'Room',width: 20},
-      {header:'Kartai', key: 'rTimes',width: 10},
-      {header:'Pacientai', key: '',width: 20},
-      {header:'Kartai', key: '',width: 10},
+      {header:'Kartai', key: 'roomTimes',width: 10},
+      {header:'Pacientai', key: 'Patient',width: 20},
+      {header:'Kartai', key: 'pTimes',width: 10},
       {header:'Kvieciantysis gyd.', key: 'Doctor',width: 20},
-      {header:'Kartai', key: 'dTimes',width: 10},
-      {header:'Specialistai', key: '',width: 20},
-      {header:'Kartai', key: '',width: 10},
-      {header:'Priezastys', key: '',width: 20},
-      {header:'Kartai', key: '',width: 10},
+      {header:'Kartai', key: 'docTimes',width: 10},
+      {header:'Specialistai', key: 'Specialist',width: 20},
+      {header:'Kartai', key: 'sTimes',width: 10},
+      {header:'Priezastys', key: 'Reason',width: 20},
+      {header:'Kartai', key: 'reasonTimes',width: 10},
+      {header:'Prieme', key: 'AcceptBy',width: 20},
+      {header:'Kartai', key: 'aTimes',width: 10}
   ];
     
   const {sorting,startingDate,startingTime,endingDate,endingTime} = req.query;
   const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting}`;
   const SELECT_CONSILIUM_WHERE = `SELECT * FROM Consilium WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting}`;
-  const COUNT_DB_VALUE = `SELECT Doctor, COUNT(*) dTimes FROM Consultation GROUP BY Doctor; SELECT Room, COUNT(*) rTimes FROM Consultation GROUP BY Room;`;
+  const COUNT_DB_VALUES = `
+  SELECT Department, COUNT(*) depTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Department ORDER BY depTimes DESC; 
+  SELECT Room, COUNT(*) roomTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Room ORDER BY roomTimes DESC; 
+  SELECT Patient, COUNT(*) pTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Patient ORDER BY pTimes DESC; 
+  SELECT Doctor, COUNT(*) docTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Doctor ORDER BY docTimes DESC; 
+  SELECT Specialist, COUNT(*) sTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Specialist ORDER BY sTimes DESC; 
+  SELECT Reason, COUNT(*) reasonTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Reason ORDER BY reasonTimes DESC; 
+  SELECT AcceptBy, COUNT(*) aTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY AcceptBy ORDER BY aTimes DESC; 
+  `;
 
-  pool.query(`${SELECT_CONSULT_WHERE}; ${SELECT_CONSILIUM_WHERE}; ${COUNT_DB_VALUE}`)
+  pool.query(`${SELECT_CONSULT_WHERE}; ${SELECT_CONSILIUM_WHERE}; ${COUNT_DB_VALUES}`)
   .then((results) => {
 
     const consultExcelRows = JSON.parse(JSON.stringify(results[0]));
     consultationSheet.addRows(consultExcelRows);
-    
+
     const consilExcelRows = JSON.parse(JSON.stringify(results[1]));
     consiliumSheet.addRows(consilExcelRows);
 
     const reportsExcelRows = JSON.parse(JSON.stringify(results[2]));
     const reportsExcelRows1 = JSON.parse(JSON.stringify(results[3]));
-    const excelRows = [...reportsExcelRows, ...reportsExcelRows1];
-    reportsSheet.addRows(excelRows);
+    const reportsExcelRows2 = JSON.parse(JSON.stringify(results[4]));
+    const reportsExcelRows3 = JSON.parse(JSON.stringify(results[5]));
+    const reportsExcelRows4 = JSON.parse(JSON.stringify(results[6]));
+    const reportsExcelRows5 = JSON.parse(JSON.stringify(results[7]));
+    const reportsExcelRows6 = JSON.parse(JSON.stringify(results[8]));
+       
+   let longestCol = [
+    Object.keys(reportsExcelRows).length,
+    Object.keys(reportsExcelRows1).length,
+    Object.keys(reportsExcelRows2).length,
+    Object.keys(reportsExcelRows3).length,
+    Object.keys(reportsExcelRows4).length,
+    Object.keys(reportsExcelRows5).length,
+    Object.keys(reportsExcelRows6).length
+   ]
 
+    const testingObjects = [];
+    for(i=0; i < Math.max(...longestCol); i++){
+      let tempObj = reportsExcelRows[i];
+      let tempObj1 = reportsExcelRows1[i];
+      let tempObj2 = reportsExcelRows2[i];
+      let tempObj3 = reportsExcelRows3[i];
+      let tempObj4 = reportsExcelRows4[i];
+      let tempObj5 = reportsExcelRows5[i];
+      let tempObj6 = reportsExcelRows6[i];
+      let tempObjData = Object.assign(tempObj || '', tempObj1 || '', tempObj2 || '', tempObj3 || '', tempObj4 || '', tempObj5 || '', tempObj6 || '');
+      testingObjects.push(tempObjData);
+    }
+    reportsSheet.addRows(testingObjects);
+    
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');
 
