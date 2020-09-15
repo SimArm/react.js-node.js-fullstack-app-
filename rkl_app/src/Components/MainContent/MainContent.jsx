@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./MainContent.scss";
 import DataRow from '../DataRow/DataRow';
 import ExportingSection from '../ExportingSection/ExportingSection';
@@ -21,33 +21,35 @@ const MainContent = ({disabled, data, Consilium}) => {
     }
 
     const Data = data || [];
-
-    const ContentTable = document.getElementsByClassName('contentBody');
-
-    ContentTable.scrollTop = ContentTable.scrollHeight;
+    
+    useEffect(() => {
+        let scrollId = document.getElementById('contend-id');
+        scrollId.scrollTop = scrollId.scrollHeight;
+    });
 
     return (
         <div className="mainContent">
             <div className="tableWrapper">
                 <div>
                     <div className="row tableHeader">
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Time')}>Data</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Department')}>Skyrius</div>
-                        <div className={disabled ? "is-disabled" : 'col-custom' } onClick={() => setSorting('Urgency')}>Skubus ar Planinis</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Room')}>Palatos nr.</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Patient')}>Pacientas</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Doctor')}>Kviečiantysis gyd.</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Specialist')}>Specialistas</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('Reason')}>Priežastis</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
-                        <div className={disabled ? "col-consilium" : 'col-custom' } onClick={() => setSorting('AcceptBy')}>Priemė</div>
-                        <div className="col-id" onClick={() => setSorting('ID')}>Nr.</div>
+                        <div className="col-id head-sect-1" onClick={() => setSorting('ID')}>Nr.</div>
+                        <div className="col-1 head-sect-1" onClick={() => setSorting('Time')}>Data</div>
+                        <div className={`${disabled ? 'is-disabled' : 'col-custom'} head-sect-1`} onClick={() => setSorting('Urgency')}>Skubus ar Planinis</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Department')}>Skyrius</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Room')}>Palatos nr.</div>
+                        <div className={`${disabled ? "col-consilium" : 'col-custom'} head-sect-2`} onClick={() => setSorting('Patient')}>Pacientas</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Doctor')}>Kviečiantysis gyd.</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-3`} onClick={() => setSorting('Specialist')}>Specialistas</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-3`} onClick={() => setSorting('Reason')}>Priežastis</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-4`} onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-5`} onClick={() => setSorting('AcceptBy')}>Priemė</div>
                     </div>
                 </div>
-                <div className="contentBody">
+                <div className="contentBody" id="contend-id">
                     {Data.sort(sortData(sorting)).map((record) => {
                             return (
                                 < DataRow 
+                                    ID = {record.ID}
                                     isDisabled = {disabled}
                                     Time = {record.Time}
                                     Department = {record.Department}
@@ -59,7 +61,6 @@ const MainContent = ({disabled, data, Consilium}) => {
                                     Reason = {record.Reason}
                                     PassTime = {record.PassTime}
                                     AcceptBy = {record.AcceptBy}
-                                    ID = {record.ID}
                                 />
                             );
                         })

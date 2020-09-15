@@ -1,28 +1,35 @@
-.is-disabled {
-    display: none;
-}
 .tablerow {
     margin: 5px 0;
     border-bottom: 1px rgba(163, 163, 163, 0.233) solid;
     div {
         display: flex;
-        align-self: center;
         justify-content: center;
+        align-content: center;
+        text-align: center;
         flex-wrap: wrap;
         padding: 0 5px;
-        // margin: 0 1px;
         border-left: 1px solid rgb(228, 226, 226);
+        min-height: 36px;
+    }
+    .is-disabled {
+        display: none;
     }
 }
 .tablerow:hover {
     background-color: rgba(0, 0, 0, 0.13);
 }
 .col-custom {
-    width: calc((100% - 45px)/10);
+    width: calc((91.6% - 45px)/9);
 }
 .col-id {
     width: 45px;
 }
 .col-consilium {
-    width: calc((100% - 45px)/9);
+    width: calc((91.6% - 45px)/8);
+}
+.planinis {
+background-color: rgb(245, 239, 187);
+}
+.skubus {
+background-color: rgb(248, 169, 164);
 }
