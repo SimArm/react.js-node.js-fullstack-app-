@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./NewRecordForm.scss";
 
 const NewRecordForm = ({ConsiliumTab}) => {
@@ -8,10 +8,9 @@ const NewRecordForm = ({ConsiliumTab}) => {
         return time;
     }
 
-    let laikas = currentTime();
-
     const currentDate = Date().slice(4,15);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
+    const [laikas, setLaikas] = useState(currentTime());
     const [timeValue, setTime] = useState(laikas);
     const [departmentValue, setDepartment] = useState('');
     const [urgencyValue, setUrgency] = useState('Skubus');
@@ -22,6 +21,13 @@ const NewRecordForm = ({ConsiliumTab}) => {
     const [reasonValue, setReason] = useState('');
     const [passTimeValue, setPassTime] = useState(laikas);
     const [acceptByValue, setAcceptBy] = useState('');
+
+    useEffect(() => {
+        const timer = window.setInterval(() => {
+            setLaikas(currentTime());
+        },1000);
+        window.clearInterval(timer);
+    },[laikas]);
 
     const updateTime = (event) => {
         const { value } = event.target;
@@ -92,7 +98,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
             <form>
                 <div>
                     <label htmlFor="Time">Laikas</label>
-                    <input type="time" placeholder={currentTime()} name="Time" id="Time" value={timeValue || currentTime()} onChange={updateTime}/>
+                    <input type="time" placeholder={laikas} name="Time" id="Time" value={timeValue || laikas} onChange={updateTime}/>
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
@@ -127,7 +133,7 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
-                    <input type="time" placeholder={currentTime()} name="PassTime" id="PassTime" value={passTimeValue || currentTime()} onChange={updatePassTime}/>
+                    <input type="time" placeholder={laikas} name="PassTime" id="PassTime" value={passTimeValue || laikas} onChange={updatePassTime}/>
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
