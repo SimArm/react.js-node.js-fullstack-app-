@@ -1,0 +1,26 @@
+.additionalData{
+    max-width: 1260px;
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: space-evenly;
+    flex-flow: row;
+    padding: 0;
+    div {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        //width: auto;
+        width: calc(100% / 12);
+        select {
+            padding: 1px;
+            height: 30px;
+        }
+        input {
+            padding: 1px;
+            height: 30px;
+        }
+    }
+    button {
+        width: calc(100% / 12);
+    }
+}

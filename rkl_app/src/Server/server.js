@@ -45,6 +45,15 @@ app.get('/consilium', (req, res) => {
       })
 });  
 
+app.get('./consiliumExtras', (req, res) => {
+  pool.query(`select * from ConsiliumExtras`)
+  .then((rows) => {
+    res.send(rows);
+  })
+  .catch(err => {
+  console.log(err);
+  })  
+});
 /* Inserting into DB */
 
 app.get('/consultation/add', (req, res) => {
@@ -62,6 +71,18 @@ app.get('/consultation/add', (req, res) => {
 app.get('/consilium/add', (req, res) => {
   const {Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
   const INSERT_CONSIL_QUERY = `INSERT INTO Consilium (Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy) VALUES ('${Time}', '${Department}', '${Room}', '${Patient}', '${Doctor}', '${Specialist}', '${Reason}', '${PassTime}', '${AcceptBy}') `;
+  pool.query(INSERT_CONSIL_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get('/consilium/addextra', (req, res) => {
+  const {ConsId,Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
+  const INSERT_CONSIL_QUERY = `INSERT INTO ConsiliumExtras (ConsId, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy) VALUES ('${ConsId}', '${Time}', '${Department}', '${Room}', '${Patient}', '${Doctor}', '${Specialist}', '${Reason}', '${PassTime}', '${AcceptBy}') `;
   pool.query(INSERT_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();

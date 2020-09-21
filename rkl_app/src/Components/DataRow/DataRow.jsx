@@ -2,7 +2,7 @@ import React from 'react';
 import EditDataRow from '../EditDataRow/EditDataRow';
 import "./DataRow.scss";
 
-const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy}) => {
+const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
 
     const getMonthFromString = (mon) => new Date(Date.parse(mon +" 1, 2020")).getMonth()+1 ;
 
@@ -43,7 +43,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{PassTime}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
-           <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy}/>
+           <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
         </div>  
     );
 }

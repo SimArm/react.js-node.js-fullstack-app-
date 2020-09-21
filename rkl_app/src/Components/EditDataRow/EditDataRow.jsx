@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import ConsiliumAdditionalData from '../ConsiliumAdditionalData/ConsiliumAdditionalData';
 
-const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1}) => {
+const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, Consilium}) => {
     
     const timePlaceHolder = () => {
         const time = Time1.slice(11,17);
@@ -138,6 +139,7 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
                 </div>
                 <button onClick={onSaveEdit}>Saugoti</button>
             </div>
+            {Consilium === true && <ConsiliumAdditionalData ID={ID1}/>}
         </div>
     );
 }

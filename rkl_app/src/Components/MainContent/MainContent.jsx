@@ -61,6 +61,7 @@ const MainContent = ({disabled, data, Consilium}) => {
                                     Reason = {record.Reason}
                                     PassTime = {record.PassTime}
                                     AcceptBy = {record.AcceptBy}
+                                    ConsiliumTab = {ifConsilium}
                                 />
                             );
                         })
