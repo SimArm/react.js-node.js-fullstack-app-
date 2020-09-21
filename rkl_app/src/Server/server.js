@@ -71,14 +71,42 @@ app.get('/consilium/add', (req, res) => {
     });
 });
 
+/* Editing existing data*/
+
+app.get('/consultation/edit', (req, res) => {
+  const {ID, Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
+  const EDIT_CONSULT_QUERY = `UPDATE Consultation SET Time='${Time}', Department='${Department}', Urgency='${Urgency}', Room='${Room}', Patient='${Patient}', Doctor='${Doctor}', Specialist='${Specialist}', Reason='${Reason}', PassTime='${PassTime}', AcceptBy='${AcceptBy}' WHERE ID='${ID}' `;
+  pool.query(EDIT_CONSULT_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+/* Delete existing data */
+
+app.get('/consultation/delete', (req, res) => {
+  const {ID} = req.query;
+  const DELETE_CONSULT_QUERY = `DELETE from Consultation WHERE ID=${ID}`;
+  pool.query(DELETE_CONSULT_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
 /* Exporting excel */
 
 app.get('/report', (req, res) => {
 
   const workbook = new excel.Workbook();
   const consultationSheet = workbook.addWorksheet('Konsultacijos');
+  const reportsSheet = workbook.addWorksheet('Konsultaciju ataskaita');
   const consiliumSheet = workbook.addWorksheet('Konsiliumas');
-  const reportsSheet = workbook.addWorksheet('Ataskaita');
   
   consultationSheet.columns = [
     {header: 'Id', key: 'ID', width: 10},
@@ -126,7 +154,7 @@ app.get('/report', (req, res) => {
     
   const {sorting,startingDate,startingTime,endingDate,endingTime} = req.query;
   const SELECT_CONSULT_WHERE = `SELECT * FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting}`;
-  const SELECT_CONSILIUM_WHERE = `SELECT * FROM Consilium WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${sorting}`;
+  const SELECT_CONSILIUM_WHERE = `SELECT * FROM Consilium WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' ORDER BY ${ sorting !== 'Urgency' ? sorting : 'Id'}`;
   const COUNT_DB_VALUES = `
   SELECT Department, COUNT(*) depTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Department ORDER BY depTimes DESC; 
   SELECT Room, COUNT(*) roomTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY Room ORDER BY roomTimes DESC; 
