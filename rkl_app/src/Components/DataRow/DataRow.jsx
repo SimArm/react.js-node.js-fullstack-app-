@@ -87,12 +87,14 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
         const record = {id: ID , Time: Time.slice(0,11) + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         fetch(`http://172.18.218.15:5001/consultation/edit?ID=${record.id}&Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
+        window.location.reload(false);
     }
 
     const deleteRecord = () => {
         const record = {id: ID}; 
-        fetch(`http://172.18.218.15:5001/consultation/delete?ID=${record.id}`)
+        window.confirm('Ar tikrai ištrinti šį įrašą?') && fetch(`http://172.18.218.15:5001/consultation/delete?ID=${record.id}`)
         .then(response => response.json()).catch(err => console.error(err));
+        window.location.reload(false);
     }
 
     return (
@@ -112,19 +114,20 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{PassTime}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
-            <div className={`hidden`} id={`EditingRow${ID}`}>
-                <form className='editingForm'>
+            <div className={`hidden`} id={`EditingRow${ID}`}>             
+                <div className='editingForm'>
+                    <button onClick={deleteRecord} className='deleteButton'>Trinti</button>
                     <div>
                         <input type="time" placeholder={timePlaceHolder()} name="Time" id="Time" value={timeValue} onChange={updateTime}/>
-                    </div>
-                    <div>
-                        <input type="text" placeholder={Urgency} name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
                     </div>
                     <div className={Urgency == null && 'hidden'}>
                         <select id="Urgency" name="Urgency" value={urgencyValue} onChange={updateUrgency}>
                             <option value="Skubus">Skubus</option>
                             <option value="Planinis">Planinis</option>
                         </select>
+                    </div>
+                    <div>
+                        <input type="text" placeholder={Urgency} name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
                     </div>
                     <div>
                         <input type="text" placeholder={Room} name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
@@ -148,8 +151,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                         <input type="text" placeholder={AcceptBy} name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
                     </div>
                     <button onClick={onSaveEdit}>Saugoti</button>
-                    <button onClick={deleteRecord}>Trinti</button>
-                </form>
+                </div>
             </div>
         </div>  
     );
