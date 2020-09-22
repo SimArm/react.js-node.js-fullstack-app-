@@ -1,6 +1,7 @@
 import React from 'react';
 import EditDataRow from '../EditDataRow/EditDataRow';
 import "./DataRow.scss";
+import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
 
 const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
 
@@ -43,7 +44,8 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{PassTime}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
-           <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
+            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
+            <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
         </div>  
     );
 }

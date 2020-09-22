@@ -45,7 +45,7 @@ app.get('/consilium', (req, res) => {
       })
 });  
 
-app.get('./consiliumExtras', (req, res) => {
+app.get('/consiliumExtras', (req, res) => {
   pool.query(`select * from ConsiliumExtras`)
   .then((rows) => {
     res.send(rows);

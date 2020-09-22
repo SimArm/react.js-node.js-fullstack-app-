@@ -5,28 +5,28 @@
     //justify-content: space-evenly;
     flex-flow: row;
     padding: 0;
-div {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    //width: auto;
-    width: calc(100% / 12);
-    select {
-        padding: 1px;
-        height: 30px;
+    div {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        //width: auto;
+        width: calc(100% / 12);
+        select {
+            padding: 1px;
+            height: 30px;
+        }
+        input {
+            padding: 1px;
+            height: 30px;
+        }
     }
-    input {
-        padding: 1px;
-        height: 30px;
+    button {
+        width: calc(100% / 12);
     }
-}
-button {
-    width: calc(100% / 12);
-}
-.deleteButton {
-    border-color: rgb(233, 27, 27);
-}
-.deleteButton:hover{
-    background-color: rgb(233, 27, 27);
-}
+    .deleteButton {
+        border-color: rgb(233, 27, 27);
+    }
+    .deleteButton:hover{
+        background-color: rgb(233, 27, 27);
+    }
 }

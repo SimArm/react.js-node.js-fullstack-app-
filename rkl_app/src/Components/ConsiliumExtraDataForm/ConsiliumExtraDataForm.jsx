@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import "./ConsiliumAdditionalData.scss";
+import "./ConsiliumExtraDataForm.scss";
 
-const ConsiliumAdditionalData = (ID) => {
+const ConsiliumExtraDataForm = (ID) => {
 
     const [timeValue, setTime] = useState('');
     const [departmentValue, setDepartment] = useState('');
@@ -59,9 +59,10 @@ const ConsiliumAdditionalData = (ID) => {
     }
 
     const onSaveConsilium = () => {
-        const record = {ConsId: ID ,Time: timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.15:5001/consilium/addextra?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        const record = {ConsId: ID.ID ,Time: timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        fetch(`http://172.18.218.15:5001/consilium/addextra?ConsId=${record.ConsId}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
+        window.location.reload(false);
     }
 
     return (
@@ -100,4 +101,4 @@ const ConsiliumAdditionalData = (ID) => {
 
 }
 
-export default ConsiliumAdditionalData;
+export default ConsiliumExtraDataForm;
