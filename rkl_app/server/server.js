@@ -106,12 +106,35 @@ app.get('/consultation/edit', (req, res) => {
     });
 });
 
+app.get('/consilium/edit', (req, res) => {
+  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
+  const EDIT_CONSIL_QUERY = `UPDATE Consultation SET Time='${Time}', Department='${Department}', Room='${Room}', Patient='${Patient}', Doctor='${Doctor}', Specialist='${Specialist}', Reason='${Reason}', PassTime='${PassTime}', AcceptBy='${AcceptBy}' WHERE ID='${ID}' `;
+  pool.query(EDIT_CONSIL_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
 /* Delete existing data */
 
 app.get('/consultation/delete', (req, res) => {
   const {ID} = req.query;
   const DELETE_CONSULT_QUERY = `DELETE from Consultation WHERE ID=${ID}`;
   pool.query(DELETE_CONSULT_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get('/consilium/delete', (req, res) => {
+  const {ID} = req.query;
+  const DELETE_CONSIL_QUERY = `DELETE from Consilium WHERE ID=${ID}`;
+  pool.query(DELETE_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
   })
