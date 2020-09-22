@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import "./ConsiliumExtraDataForm.scss";
+import saveWhite from '../../CssLib/done-white.svg';
+import saveBlack from '../../CssLib/done-black.svg';
 
 const ConsiliumExtraDataForm = (ID) => {
 
@@ -95,7 +97,7 @@ const ConsiliumExtraDataForm = (ID) => {
             <div>
                 <input type="text" placeholder='Prieme' name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
             </div>
-            <button onClick={onSaveConsilium}>Saugoti</button>
+            <button onClick={onSaveConsilium} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
         </div>
     );
 

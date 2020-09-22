@@ -4,24 +4,36 @@
     flex-wrap: wrap;
     //justify-content: space-evenly;
     flex-flow: row;
-    padding: 0;
+    padding: 3px 0 13px 0;
     div {
         display: flex;
         flex-flow: column;
         justify-content: space-between;
-        //width: auto;
-        width: calc(100% / 12);
         select {
             padding: 1px;
             height: 30px;
+            border-radius: 0;
+            border-color: gray;
         }
         input {
             padding: 1px;
             height: 30px;
+            border-radius: 0;
+            border-color: gray;
         }
     }
-    button {
-        width: calc(100% / 12);
+    .consultInput{
+        width: calc((100% - 90px)/10);
+    }
+    .consilInput{
+        width: calc((100% - 90px)/9);
+    }
+    button {       
+        border-radius: 0;
+        width: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .deleteButton {
         border-color: rgb(233, 27, 27);

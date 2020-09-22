@@ -10,7 +10,7 @@
     padding: 0 5px;
 }
 .tableHeader {
-    padding: 15px 18px 5px 0;
+    padding: 15px 16px 5px 0;
     width: 100%;
     div {
         cursor: pointer;
@@ -42,6 +42,9 @@
     height: 70vh;
     overflow:auto;
     background-color: white;
+    ::-webkit-scrollbar {
+        scrollbar-width: none;    
+    }
 }
 .row {
     margin: 0 0 0 0;

@@ -62,6 +62,10 @@
         cursor: pointer;
         background-color: rgb(129, 226, 129);
         color: white;
+        img {
+            display: flex;
+            align-content: center;
+        }
     }
 }
 

@@ -1,6 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 import './EditDataRow.scss';
+import saveBlack from '../../CssLib/done-black.svg';
+import deleteBlack from '../../CssLib/delete-black.svg';
+import saveWhite from '../../CssLib/done-white.svg';
+import deleteWhite from '../../CssLib/delete-white.svg';
+
 
 const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, Consilium}) => {
     
@@ -104,41 +109,41 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
     return (
         <div className={`hidden editRow`} id={`EditingRow${ID1}`}>             
             <div className='editingForm'>
-                <button onClick={deleteRecord} className='deleteButton'>Trinti</button>
-                <div>
+                <button onClick={deleteRecord} className='deleteButton' onMouseOver={e => (e.currentTarget.firstChild.src = deleteWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = deleteBlack)}><img src={deleteBlack} alt='X'/></button>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="time" placeholder={timePlaceHolder()} name="Time" id="Time" value={timeValue} onChange={updateTime}/>
                 </div>
-                <div className={Urgency1 == null && 'hidden'}>
+                {Consilium !== true && <div  className='consultInput'>
                     <select id="Urgency" name="Urgency" value={urgencyValue} onChange={updateUrgency}>
                         <option value="Skubus">Skubus</option>
                         <option value="Planinis">Planinis</option>
                     </select>
-                </div>
-                <div>
+                </div>}
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Department1} name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Room1} name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Patient1} name="Patient" id="Patient" value={patientValue} onChange={updatePatient} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Doctor1} name="Doctor" id="Doctor" value={doctorValue} onChange={updateDoctor} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Specialist1} name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={Reason1} name="Reason" id="Reason" value={reasonValue} onChange={updateReason} required/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="time" placeholder={PassTime1} name="PassTime" id="PassTime" value={passTimeValue} onChange={updatePassTime}/>
                 </div>
-                <div>
+                <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="text" placeholder={AcceptBy1} name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
                 </div>
-                <button onClick={onSaveEdit}>Saugoti</button>
+                <button onClick={onSaveEdit} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
             </div>
             {Consilium === true && <ConsiliumExtraDataForm ID={ID1}/>}
         </div>
