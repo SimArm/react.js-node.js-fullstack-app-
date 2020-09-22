@@ -1,8 +1,8 @@
 .newRecordWrapper {
     background-color: rgb(255, 255, 255);
-    border: 2px solid rgb(124, 124, 124);
-    // border: 3px solid rgb(155, 207, 241);
-    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    min-height: 90px;
+    margin-top: 20px;
     form{
         max-width: 1260px;
         display: flex;
@@ -31,14 +31,14 @@
             margin: 2px;
             height: 30px;
             border: 1px solid black;
-            border-radius: 5px;
+            border-radius: 0;
         }
         input {
             padding: 1px;
             margin: 2px;
             height: 30px;
             border: 1px solid black;
-            border-radius: 5px;
+            border-radius: 0;
         }
         select {
             margin: 2px;
@@ -75,7 +75,6 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
         flex-flow: row;
-        padding: 0;
         div {
             max-width: calc(100% / 11);
         }
