@@ -271,13 +271,3 @@ const databaseDateFormat = (date,time) => {
   const fullDate = `${monthShortNames[parseInt(date.slice(5,7))]} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
   return fullDate;
 }
-
-/* Catch-all */
-
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
