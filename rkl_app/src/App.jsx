@@ -28,12 +28,8 @@ const App = () => {
             <Route exact path="/">
               <Redirect to="/Konsultacijos" />
             </Route>
-            <Route path="/Konsultacijos" exact strict>
-              <Consultation />
-            </Route>
-            <Route path="/Konsiliumai" exact strict>
-              <Consilium />
-            </Route>
+            <Route path="/Konsultacijos" component={Consultation} />
+            <Route path="/Konsiliumai" component={Consilium} />
           </Switch>
         </div>
       </div>
