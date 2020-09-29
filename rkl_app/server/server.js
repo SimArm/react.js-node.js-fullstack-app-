@@ -12,9 +12,9 @@ app.use(cors());
 
 const pool = mariadb.createPool({
     host: 'localhost',
-    user: 'ligtre',
-    password: 'kometa',
-    database: 'ligtreDB',
+    user: 'user',
+    password: 'password',
+    database: 'database',
     connectionLimit: 10,
     idleTimeoutMillis: 1000,
     multipleStatements: true
