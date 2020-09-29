@@ -135,13 +135,21 @@ app.get('/consultation/delete', (req, res) => {
 app.get('/consilium/delete', (req, res) => {
   const {ID} = req.query;
   const DELETE_CONSIL_QUERY = `DELETE from Consilium WHERE ID=${ID}`;
+  const DELETE_EXTRAS_QUERY = `DELETE from ConsiliumExtras WHERE ConsId=${ID}`;
   pool.query(DELETE_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
+  pool.query(DELETE_EXTRAS_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 /* Exporting excel */

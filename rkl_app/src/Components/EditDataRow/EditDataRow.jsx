@@ -97,7 +97,7 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
     const deleteConsilRecord = () => {
         const record = {id: ID1}; 
         window.confirm('Ar tikrai ištrinti šį įrašą?') && fetch(`http://172.18.218.15:5001/consilium/delete?ID=${record.id}`)
-        .then(response => response.json()).catch(err => console.error(err));
+        .then(response => response.json()).catch(err => console.error(err)) &&
         window.location.reload(false);
     }
 

@@ -1,10 +1,16 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import EditDataRow from '../EditDataRow/EditDataRow';
 import "./DataRow.scss";
 import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
 import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 
 const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
+
+    const [clicked, setClicked] = useState(0);
+
+    // useEffect(() => {
+    //     insertProp();
+    // }, [clicked])
 
     const getMonthFromString = (mon) => new Date(Date.parse(mon +" 1, 2020")).getMonth()+1 ;
 
@@ -41,7 +47,13 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 additionalRow.removeAttribute('class');
                 additionalRow.setAttribute('class','additionalData visible');
             }
+            rowClicked();
         }
+    }
+
+    const rowClicked = () => {
+        let clicks = clicked + 1;
+        setClicked(clicks);
     }
 
     return (
@@ -62,7 +74,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
             <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
-            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
+            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID} Clicked={clicked}/> }
             {ConsiliumTab === true && <ConsiliumExtraDataForm RecID={ID}/> }        
         </div>  
     );

@@ -74,7 +74,7 @@ const ConsiliumExtraDataForm = (RecID) => {
                 <input type="time" placeholder='Laikas' name="Time" id="Time" value={timeValue} onChange={updateTime}/>
             </div>
             <div>
-                <input type="text" placeholder='Skyrius'name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
+                <input type="text" placeholder='Skyrius' name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
             </div>
             <div>
                 <input type="text" placeholder='Palata' name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
