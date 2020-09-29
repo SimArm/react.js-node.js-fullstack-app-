@@ -2,6 +2,7 @@ import React from 'react';
 import EditDataRow from '../EditDataRow/EditDataRow';
 import "./DataRow.scss";
 import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
+import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 
 const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
 
@@ -11,9 +12,10 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
        return `${isDisabled ? 'is-disabled' : 'col-custom'} ${Urgency === 'Planinis' ? 'planinis' : 'skubus'}`
     }
 
-    const editRow = () => {
+    const showHide = () => {
         const currentRow = document.getElementById(`EditingRow${ID}`);
         const currentClass = currentRow.classList.contains('visible');
+
         if (currentClass === true) {
             currentRow.removeAttribute('class');
             currentRow.setAttribute('class','hidden editRow');
@@ -24,12 +26,27 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
             });  
             currentRow.removeAttribute('class');
             currentRow.setAttribute('class','visible editRow');
-        }      
+        }     
+        if (ConsiliumTab === true) {
+            const additionalRow = document.getElementById(`ExtrasRow${ID}`);
+            const additionalClass = additionalRow.classList.contains('visible');
+            if (additionalClass === true) {
+                additionalRow.removeAttribute('class');
+                additionalRow.setAttribute('class','additionalData hidden');
+            } else {
+                const allAddRows = document.querySelectorAll('.additionalData');
+                allAddRows.forEach((el) => {
+                    el.classList.replace('visible', 'hidden');
+                });  
+                additionalRow.removeAttribute('class');
+                additionalRow.setAttribute('class','additionalData visible');
+            }
+        }
     }
 
     return (
         <div>
-            <div className="row tablerow" onDoubleClick={editRow}>
+            <div className="row tablerow" onDoubleClick={showHide}>
                 <div className="col-id">{ID || 1}</div>
                 <div className="col-1">
                     {`${getMonthFromString(Time.slice(0,4))}/${Time.slice(4,7)} `}{Time.slice(11,17)}
@@ -44,8 +61,9 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{PassTime}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
-            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
             <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
+            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
+            {ConsiliumTab === true && <ConsiliumExtraDataForm RecID={ID}/> }        
         </div>  
     );
 }

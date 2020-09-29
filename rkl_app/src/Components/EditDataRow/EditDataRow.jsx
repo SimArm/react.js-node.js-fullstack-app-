@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 import './EditDataRow.scss';
 import saveBlack from '../../CssLib/done-black.svg';
 import deleteBlack from '../../CssLib/delete-black.svg';
 import saveWhite from '../../CssLib/done-white.svg';
 import deleteWhite from '../../CssLib/delete-white.svg';
-
 
 const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, Consilium}) => {
     
@@ -159,7 +157,6 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
                 </div>
                 <button onClick={Consilium !== true ? consEditSave : consilEditSave} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
             </div>
-            {Consilium === true && <ConsiliumExtraDataForm ID={ID1}/>}
         </div>
     );
 }
