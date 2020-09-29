@@ -1,5 +1,4 @@
 
-const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
@@ -41,20 +40,18 @@ module.exports = {
             loader: "css-loader"
         }, {
             loader: "sass-loader",
-            options: {
-              sassOptions: { includePaths }
-            }
+            // includePaths: ['absolute/path/a', 'absolute/path/b'],
         }]
     }
     ]
   }
 };
 
-// module.exports = {
-//   resolve: {
-//     alias: {
-//       'components': path.resolve(__dirname, 'src/components'),
-//     },
-//     extensions: ['.jsx', '.js', '.scss', '.json'],
-//   },
-// };
+module.exports = {
+  resolve: {
+    alias: {
+      'components': path.resolve(__dirname, 'src/components'),
+    },
+    extensions: ['.jsx', '.js', '.scss', '.json'],
+  },
+};

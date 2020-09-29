@@ -3,7 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import App from '../src/App.jsx';
+import App from '../src/App';
+
+const app = express();
+app.listen(5000, console.log('Server is running on 5000'));
 
 function handleRender(req, res) {
   const html = ReactDOMServer.renderToString(<App />);
@@ -17,10 +20,7 @@ function handleRender(req, res) {
   });
 }
 
-const app = express();
 
 app.use('/build', express.static(path.join(__dirname, 'build')));
 
 app.get('*', handleRender);
-
-app.listen(3000);
