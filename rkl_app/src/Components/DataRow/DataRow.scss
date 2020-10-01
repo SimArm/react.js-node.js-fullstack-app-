@@ -37,5 +37,20 @@ background-color: rgb(248, 169, 164);
 .hidden {
     display: none;
 }
+.showElements{
 
+}
+.hideElements{
+    .editRow {
+        display: none;
+    }
+    .additionalData{
+        display: none;
+    }
+    .extrasWrapper {
+        button {
+            display: none;
+        }
+    }
+}
 

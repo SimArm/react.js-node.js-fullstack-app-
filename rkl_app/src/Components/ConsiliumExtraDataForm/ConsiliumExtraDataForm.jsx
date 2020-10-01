@@ -68,7 +68,7 @@ const ConsiliumExtraDataForm = (RecID) => {
     }
 
     return (
-        <div className='additionalData hidden' id={`ExtrasRow${RecID.RecID}`}>
+        <div className='additionalData' id={`ExtrasRow${RecID.RecID}`}>
             <div>Papildoma informacija:</div>
             <div>
                 <input type="time" placeholder='Laikas' name="Time" id="Time" value={timeValue} onChange={updateTime}/>

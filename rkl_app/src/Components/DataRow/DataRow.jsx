@@ -1,16 +1,10 @@
-import React , {useState, useEffect} from 'react';
+import React  from 'react';
 import EditDataRow from '../EditDataRow/EditDataRow';
 import "./DataRow.scss";
 import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
 import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 
 const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
-
-    const [clicked, setClicked] = useState(0);
-
-    // useEffect(() => {
-    //     insertProp();
-    // }, [clicked])
 
     const getMonthFromString = (mon) => new Date(Date.parse(mon +" 1, 2020")).getMonth()+1 ;
 
@@ -19,45 +13,21 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
     }
 
     const showHide = () => {
-        const currentRow = document.getElementById(`EditingRow${ID}`);
-        const currentClass = currentRow.classList.contains('visible');
-
-        if (currentClass === true) {
-            currentRow.removeAttribute('class');
-            currentRow.setAttribute('class','hidden editRow');
+        const wrapper = document.getElementById(`Wrapper${ID}`);
+        const wrapperClasses = wrapper.classList.contains('showElements');
+        if (wrapperClasses === true) {
+            wrapper.classList.replace('showElements','hideElements');
         } else {
-            const allEditrows = document.querySelectorAll('.editRow');
-            allEditrows.forEach((el) => {
-                el.classList.replace('visible', 'hidden');
-            });  
-            currentRow.removeAttribute('class');
-            currentRow.setAttribute('class','visible editRow');
-        }     
-        if (ConsiliumTab === true) {
-            const additionalRow = document.getElementById(`ExtrasRow${ID}`);
-            const additionalClass = additionalRow.classList.contains('visible');
-            if (additionalClass === true) {
-                additionalRow.removeAttribute('class');
-                additionalRow.setAttribute('class','additionalData hidden');
-            } else {
-                const allAddRows = document.querySelectorAll('.additionalData');
-                allAddRows.forEach((el) => {
-                    el.classList.replace('visible', 'hidden');
-                });  
-                additionalRow.removeAttribute('class');
-                additionalRow.setAttribute('class','additionalData visible');
-            }
-            rowClicked();
+            const allWrappers = document.querySelectorAll('.recWrap');
+            allWrappers.forEach((el)=>{
+                el.classList.replace('showElements', 'hideElements');
+            });
+            wrapper.classList.replace('hideElements','showElements');
         }
     }
 
-    const rowClicked = () => {
-        let clicks = clicked + 1;
-        setClicked(clicks);
-    }
-
     return (
-        <div>
+        <div id={`Wrapper${ID}`} className={'hideElements recWrap'}>
             <div className="row tablerow" onDoubleClick={showHide}>
                 <div className="col-id">{ID || 1}</div>
                 <div className="col-1">
@@ -74,7 +44,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
             <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
-            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID} Clicked={clicked}/> }
+            {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
             {ConsiliumTab === true && <ConsiliumExtraDataForm RecID={ID}/> }        
         </div>  
     );

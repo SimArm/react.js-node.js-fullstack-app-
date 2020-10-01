@@ -55,6 +55,7 @@ app.get('/consiliumExtras', (req, res) => {
   console.log(err);
   })  
 });
+
 /* Inserting into DB */
 
 app.get('/consultation/add', (req, res) => {
@@ -152,6 +153,18 @@ app.get('/consilium/delete', (req, res) => {
   });
 });
 
+app.get('/consiliumExtras/delete', (req, res) => {
+  const {ID} = req.query;
+  const DELETE_EXTRA_QUERY = `DELETE from ConsiliumExtras WHERE ID=${ID}`;
+  pool.query(DELETE_EXTRA_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
 /* Exporting excel */
 
 app.get('/report', (req, res) => {
@@ -245,7 +258,7 @@ app.get('/report', (req, res) => {
     Object.keys(reportsExcelRows6).length
    ]
 
-    const testingObjects = [];
+    const reportsObject = [];
     for(i=0; i < Math.max(...longestCol); i++){
       let tempObj = reportsExcelRows[i];
       let tempObj1 = reportsExcelRows1[i];
@@ -255,9 +268,9 @@ app.get('/report', (req, res) => {
       let tempObj5 = reportsExcelRows5[i];
       let tempObj6 = reportsExcelRows6[i];
       let tempObjData = Object.assign(tempObj || '', tempObj1 || '', tempObj2 || '', tempObj3 || '', tempObj4 || '', tempObj5 || '', tempObj6 || '');
-      testingObjects.push(tempObjData);
+      reportsObject.push(tempObjData);
     }
-    reportsSheet.addRows(testingObjects);
+    reportsSheet.addRows(reportsObject);
     
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');

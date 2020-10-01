@@ -2,14 +2,12 @@
     max-width: 1260px;
     display: flex;
     flex-wrap: wrap;
-    //justify-content: space-evenly;
     flex-flow: row;
     padding: 3px 0 13px 0;
     div {
         display: flex;
         flex-flow: column;
         justify-content: space-between;
-        //width: auto;
         width: calc((100% - 45px)/10);;
         select {
             padding: 1px;
@@ -31,8 +29,4 @@
         justify-content: center;
         border-radius: 0;
     }
-}
-.hidden {
-    display: none;
-    
 }
