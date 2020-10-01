@@ -46,16 +46,8 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
         setSorting(value);
     }
 
-    const onGetConsultReport = () => {
+    const onGetReport = () => {
         let url = `http://172.18.218.15:5001/report?sorting=${sorting}&startingDate=${startingDate}&startingTime=${startingTime}&endingDate=${endingDate}&endingTime=${endingTime}`;
-        fetch(url)
-        .then((response) => response.json())
-        .catch(err => console.error(err));
-        window.open(url,'_blank');
-    }
-
-    const onGetConsiliumReport = () => {
-        let url = `http://172.18.218.15:5001/consilium/report?sorting=${sorting}&startingDate=${startingDate}&startingTime=${startingTime}&endingDate=${endingDate}&endingTime=${endingTime}`;
         fetch(url)
         .then((response) => response.json())
         .catch(err => console.error(err));
@@ -85,7 +77,7 @@ const ExportingSection = ({sortBy, ConsiliumTab}) => {
                 <input type="date" id="DateUntil" name="DateUntil" placeholder={defaultDate()} value={endingDate} onChange={updateEndingDate}/>
                 <input type="time" id="TimeUntil" name="TimeUntil" placeholder={defaultTime} value={endingTime} onChange={updateEndingTime}/>
             </form>
-            <button onClick={ConsiliumTab ? onGetConsiliumReport : onGetConsultReport}>Ataskaita</button>
+            <button onClick={() => {onGetReport()}}>Ataskaita</button>
         </div>
     );
 }

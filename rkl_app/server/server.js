@@ -231,6 +231,8 @@ app.get('/report', (req, res) => {
   SELECT AcceptBy, COUNT(*) aTimes FROM Consultation WHERE Time BETWEEN '${databaseDateFormat(startingDate,startingTime)}' AND '${databaseDateFormat(endingDate,endingTime)}' GROUP BY AcceptBy ORDER BY aTimes DESC; 
   `;
 
+
+
   pool.query(`${SELECT_CONSULT_WHERE}; ${SELECT_CONSILIUM_WHERE}; ${COUNT_DB_VALUES}`)
   .then((results) => {
 
@@ -238,7 +240,30 @@ app.get('/report', (req, res) => {
     consultationSheet.addRows(consultExcelRows);
 
     const consilExcelRows = JSON.parse(JSON.stringify(results[1]));
-    consiliumSheet.addRows(consilExcelRows);
+
+    const consilIdObj = [];
+    consilExcelRows.map((el)=>{
+      consilIdObj.push(el.ID);
+    });
+
+    /* pool.query below exceeds only after .then.catch.. need to async/await  */
+    
+    const SELECT_EXTRAS_WHERE = `SELECT * FROM ConsiliumExtras WHERE ConsId in (${consilIdObj.toString()});`;
+    pool.query(SELECT_EXTRAS_WHERE).then((results)=>{
+        const extrasData = [];  
+        extrasData.push(...results);
+                for (const {ConsId: ID, Time: Time, Department: Department, Room: Room, Patient: Patient, Doctor: Doctor, Specialist: Specialist, Reason: Reason, PassTime: PassTime, AcceptBy: AcceptBy} of extrasData) {
+          let tempObj = {ID: ID,Time: Time, Department: Department, Room: Room, Patient: Patient, Doctor: Doctor, Specialist: Specialist, Reason: Reason, PassTime: PassTime, AcceptBy: AcceptBy};
+          consilExcelRows.push(tempObj);
+          console.log(consilExcelRows);
+        }
+    })
+    .then(() =>{
+      consiliumSheet.addRows(consilExcelRows);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
     const reportsExcelRows = JSON.parse(JSON.stringify(results[2]));
     const reportsExcelRows1 = JSON.parse(JSON.stringify(results[3]));
@@ -247,16 +272,16 @@ app.get('/report', (req, res) => {
     const reportsExcelRows4 = JSON.parse(JSON.stringify(results[6]));
     const reportsExcelRows5 = JSON.parse(JSON.stringify(results[7]));
     const reportsExcelRows6 = JSON.parse(JSON.stringify(results[8]));
-       
-   let longestCol = [
-    Object.keys(reportsExcelRows).length,
-    Object.keys(reportsExcelRows1).length,
-    Object.keys(reportsExcelRows2).length,
-    Object.keys(reportsExcelRows3).length,
-    Object.keys(reportsExcelRows4).length,
-    Object.keys(reportsExcelRows5).length,
-    Object.keys(reportsExcelRows6).length
-   ]
+      
+    let longestCol = [
+      Object.keys(reportsExcelRows).length,
+      Object.keys(reportsExcelRows1).length,
+      Object.keys(reportsExcelRows2).length,
+      Object.keys(reportsExcelRows3).length,
+      Object.keys(reportsExcelRows4).length,
+      Object.keys(reportsExcelRows5).length,
+      Object.keys(reportsExcelRows6).length
+    ]
 
     const reportsObject = [];
     for(i=0; i < Math.max(...longestCol); i++){
@@ -271,20 +296,21 @@ app.get('/report', (req, res) => {
       reportsObject.push(tempObjData);
     }
     reportsSheet.addRows(reportsObject);
-    
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');
-
-    workbook.xlsx.write(res)
-    .then(() => {
-        res.status(200).end();
+    console.log('THIS EVENT HAPPENS LAST?');
+    })
+    .then(()=>{
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');
+      console.log('THIS EVENT SHOULD HAPPEN AFTER EVERYTHING');
+      workbook.xlsx.write(res)
+      .then(() => {
+          res.status(200).end();
+      })
+    })  
+    .catch(err => {
+      console.log(err);
     });
-
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}); 
+  }); 
 
 const databaseDateFormat = (date,time) => { 
   const monthShortNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun",
