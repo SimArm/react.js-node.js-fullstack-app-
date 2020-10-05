@@ -19,7 +19,7 @@ const Consilium = () => {
 
     return (
         <div>
-            <NewRecordForm ConsiliumTab={true}/>
+            <NewRecordForm ConsiliumTab={true} dataDB={data}/>
             <MainContent disabled={true} data={data} Consilium={true}/>
         </div>
     );

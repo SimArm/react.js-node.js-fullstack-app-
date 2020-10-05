@@ -71,31 +71,31 @@ const ConsiliumExtraDataForm = (RecID) => {
         <div className='additionalData' id={`ExtrasRow${RecID.RecID}`}>
             <div>Papildoma informacija:</div>
             <div>
-                <input type="time" placeholder='Laikas' name="Time" id="Time" value={timeValue} onChange={updateTime}/>
+                <input type="time" placeholder='Laikas' name="Time" value={timeValue} onChange={updateTime}/>
             </div>
             <div>
-                <input type="text" placeholder='Skyrius' name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
+                <input type="text" placeholder='Skyrius' name="Department" value={departmentValue} onChange={updateDepartment} required/>
             </div>
             <div>
-                <input type="text" placeholder='Palata' name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
+                <input type="text" placeholder='Palata' name="Room"  value={roomValue} onChange={updateRoom} required/>
             </div>
             <div>
-                <input type="text" placeholder='Pacientas' name="Patient" id="Patient" value={patientValue} onChange={updatePatient} required/>
+                <input type="text" placeholder='Pacientas' name="Patient" value={patientValue} onChange={updatePatient} required/>
             </div>
             <div>
-                <input type="text" placeholder='Gydytojas' name="Doctor" id="Doctor" value={doctorValue} onChange={updateDoctor} required/>
+                <input type="text" placeholder='Gydytojas' name="Doctor" value={doctorValue} onChange={updateDoctor} required/>
             </div>
             <div>
-                <input type="text" placeholder='Specialistas' name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
+                <input type="text" placeholder='Specialistas' name="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
             </div>
             <div>
-                <input type="text" placeholder='Priezastis' name="Reason" id="Reason" value={reasonValue} onChange={updateReason} required/>
+                <input type="text" placeholder='Priezastis' name="Reason" value={reasonValue} onChange={updateReason} required/>
             </div>
             <div>
-                <input type="time" placeholder='Perdavimo Laikas' name="PassTime" id="PassTime" value={passTimeValue} onChange={updatePassTime}/>
+                <input type="time" placeholder='Perdavimo Laikas' name="PassTime" value={passTimeValue} onChange={updatePassTime}/>
             </div>
             <div>
-                <input type="text" placeholder='Prieme' name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
+                <input type="text" placeholder='Prieme' name="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
             </div>
             <button onClick={onSaveConsilium} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
         </div>

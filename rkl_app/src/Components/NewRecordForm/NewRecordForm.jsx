@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "./NewRecordForm.scss";
 
-const NewRecordForm = ({ConsiliumTab}) => {
+const NewRecordForm = ({ConsiliumTab, dataDB}) => {
 
     const currentTime = () => {
         let time = Date().slice(16,21);
@@ -99,6 +99,27 @@ const NewRecordForm = ({ConsiliumTab}) => {
         .then(response => response.json()).catch(err => console.error(err));
     }
 
+    const database = dataDB || [];
+
+    const commonValues = (arr, property) => {
+        let valuesArray = arr.map(el => el[property]) || [];
+        let commonValuesArr = [];
+
+        for (let i=0; i<5; i++) {
+
+            let commonValue = valuesArray.sort((a,b) =>
+                    valuesArray.filter(v => v===a).length
+                    - valuesArray.filter(v => v===b).length
+                ).pop();
+            commonValuesArr.push(commonValue);
+
+            valuesArray = valuesArray.filter((obj) => {
+                return obj !== commonValue;
+            });
+        }
+        return commonValuesArr;
+    }
+
     return (
         <div className="newRecordWrapper">
             <form>
@@ -108,7 +129,14 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
-                    <input type="text" placeholder="Skyrius" name="Department" id="Department" value={departmentValue} onChange={updateDepartment} required/>
+                    <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autocomplete="off" required/>
+                    <datalist id='depSuggest'>
+                        <option value={commonValues(database, 'Department')[0]}></option>
+                        <option value={commonValues(database, 'Department')[1]}></option>
+                        <option value={commonValues(database, 'Department')[2]}></option>
+                        <option value={commonValues(database, 'Department')[3]}></option>
+                        <option value={commonValues(database, 'Department')[4]}></option>
+                    </datalist>
                 </div>
                 <div className={ConsiliumTab && 'disabled'}>
                     <label htmlFor="Urgency">Skuba</label>
@@ -119,23 +147,58 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="Room">Palata:</label>
-                    <input type="text" placeholder="Palata" name="Room" id="Room" value={roomValue} onChange={updateRoom} required/>
+                    <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autocomplete="off" required/>
+                    <datalist id='rSuggest'>
+                        <option value={commonValues(database, 'Room')[0]}></option>
+                        <option value={commonValues(database, 'Room')[1]}></option>
+                        <option value={commonValues(database, 'Room')[2]}></option>
+                        <option value={commonValues(database, 'Room')[3]}></option>
+                        <option value={commonValues(database, 'Room')[4]}></option>
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
-                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient} required/>
+                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" list="pSuggest" value={patientValue} onChange={updatePatient} autocomplete="off" required/>
+                    <datalist id='pSuggest'>
+                        <option value={commonValues(database, 'Patient')[0]}></option>
+                        <option value={commonValues(database, 'Patient')[1]}></option>
+                        <option value={commonValues(database, 'Patient')[2]}></option>
+                        <option value={commonValues(database, 'Patient')[3]}></option>
+                        <option value={commonValues(database, 'Patient')[4]}></option>
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
-                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" value={doctorValue} onChange={updateDoctor} required/>
+                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autocomplete="off" required/>
+                    <datalist id='docSuggest'>
+                        <option value={commonValues(database, 'Doctor')[0]}></option>
+                        <option value={commonValues(database, 'Doctor')[1]}></option>
+                        <option value={commonValues(database, 'Doctor')[2]}></option>
+                        <option value={commonValues(database, 'Doctor')[3]}></option>
+                        <option value={commonValues(database, 'Doctor')[4]}></option>
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
-                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
+                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autocomplete="off" required/>
+                    <datalist id='specSuggest'>
+                        <option value={commonValues(database, 'Specialist')[0]}></option>
+                        <option value={commonValues(database, 'Specialist')[1]}></option>
+                        <option value={commonValues(database, 'Specialist')[2]}></option>
+                        <option value={commonValues(database, 'Specialist')[3]}></option>
+                        <option value={commonValues(database, 'Specialist')[4]}></option>
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
-                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" value={reasonValue} onChange={updateReason} required/>
+                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autocomplete="off" required/>
+                    <datalist id='reasSuggest'>
+                        <option value={commonValues(database, 'Reason')[0]}></option>
+                        <option value={commonValues(database, 'Reason')[1]}></option>
+                        <option value={commonValues(database, 'Reason')[2]}></option>
+                        <option value={commonValues(database, 'Reason')[3]}></option>
+                        <option value={commonValues(database, 'Reason')[4]}></option>
+                    </datalist>
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
@@ -143,13 +206,19 @@ const NewRecordForm = ({ConsiliumTab}) => {
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
-                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
+                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autocomplete="off" required/>
+                    <datalist id='accepSuggest'>
+                        <option value={commonValues(database, 'AcceptBy')[0]}></option>
+                        <option value={commonValues(database, 'AcceptBy')[1]}></option>
+                        <option value={commonValues(database, 'AcceptBy')[2]}></option>
+                        <option value={commonValues(database, 'AcceptBy')[3]}></option>
+                        <option value={commonValues(database, 'AcceptBy')[4]}></option>
+                    </datalist>
                 </div>
                 <button onClick={ConsiliumTab ? onSaveConsilium : onSaveConsultation}>Saugoti</button>
             </form>
         </div>
-    );
-    
+    );  
 }
 
 export default NewRecordForm;

@@ -19,7 +19,7 @@ const Consultation = () => {
 
     return (
         <div>
-            <NewRecordForm />
+            <NewRecordForm dataDB={data}/>
             <MainContent disabled={false} data={data} ConsiliumTab={false}/>
         </div>
     );

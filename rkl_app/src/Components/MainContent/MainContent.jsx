@@ -21,7 +21,7 @@ const MainContent = ({disabled, data, Consilium}) => {
     }
 
     const Data = data || [];
-    
+
     useEffect(() => {
         let scrollId = document.getElementById('contend-id');
         scrollId.scrollTop = scrollId.scrollHeight;
