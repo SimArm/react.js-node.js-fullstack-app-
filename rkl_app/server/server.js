@@ -171,8 +171,8 @@ app.get('/report', (req, res) => {
 
   const workbook = new excel.Workbook();
   const consultationSheet = workbook.addWorksheet('Konsultacijos');
-  const reportsSheet = workbook.addWorksheet('Konsultaciju ataskaita');
   const consiliumSheet = workbook.addWorksheet('Konsiliumas');
+  const reportsSheet = workbook.addWorksheet('Konsultaciju ataskaita');
   
   consultationSheet.columns = [
     {header: 'Id', key: 'ID', width: 10},
@@ -234,7 +234,7 @@ app.get('/report', (req, res) => {
 
 
   pool.query(`${SELECT_CONSULT_WHERE}; ${SELECT_CONSILIUM_WHERE}; ${COUNT_DB_VALUES}`)
-  .then((results) => {
+  .then(async (results) => {
 
     const consultExcelRows = JSON.parse(JSON.stringify(results[0]));
     consultationSheet.addRows(consultExcelRows);
@@ -245,20 +245,18 @@ app.get('/report', (req, res) => {
     consilExcelRows.map((el)=>{
       consilIdObj.push(el.ID);
     });
-
-    /* pool.query below exceeds only after .then.catch.. need to async/await  */
-    
+ 
     const SELECT_EXTRAS_WHERE = `SELECT * FROM ConsiliumExtras WHERE ConsId in (${consilIdObj.toString()});`;
-    pool.query(SELECT_EXTRAS_WHERE).then((results)=>{
+    await pool.query(SELECT_EXTRAS_WHERE).then((results)=>{
         const extrasData = [];  
         extrasData.push(...results);
                 for (const {ConsId: ID, Time: Time, Department: Department, Room: Room, Patient: Patient, Doctor: Doctor, Specialist: Specialist, Reason: Reason, PassTime: PassTime, AcceptBy: AcceptBy} of extrasData) {
           let tempObj = {ID: ID,Time: Time, Department: Department, Room: Room, Patient: Patient, Doctor: Doctor, Specialist: Specialist, Reason: Reason, PassTime: PassTime, AcceptBy: AcceptBy};
           consilExcelRows.push(tempObj);
-          console.log(consilExcelRows);
         }
     })
     .then(() =>{
+      consilExcelRows.sort((a, b) => parseFloat(a.ID) - parseFloat(b.ID));
       consiliumSheet.addRows(consilExcelRows);
     })
     .catch(err => {
@@ -296,21 +294,20 @@ app.get('/report', (req, res) => {
       reportsObject.push(tempObjData);
     }
     reportsSheet.addRows(reportsObject);
-    console.log('THIS EVENT HAPPENS LAST?');
     })
-    .then(()=>{
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');
-      console.log('THIS EVENT SHOULD HAPPEN AFTER EVERYTHING');
-      workbook.xlsx.write(res)
-      .then(() => {
-          res.status(200).end();
-      })
-    })  
-    .catch(err => {
-      console.log(err);
-    });
-  }); 
+  .then(()=>{
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + 'KonsultacijuAtaskaita.xlsx');
+    workbook.xlsx.write(res)
+    .then(() => {
+        res.status(200).end();
+    })
+  })  
+  .catch(err => {
+    console.log(err);
+  });
+  
+}); 
 
 const databaseDateFormat = (date,time) => { 
   const monthShortNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun",
