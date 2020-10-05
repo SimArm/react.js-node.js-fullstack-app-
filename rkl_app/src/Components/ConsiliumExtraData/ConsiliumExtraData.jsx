@@ -26,11 +26,21 @@ const ConsiliumExtraData = ({RecID}) => {
         window.location.reload(false);
     }
 
+    const editExtra = (ID) => {
+        const div = document.getElementById(`ExtrasWrap${ID}`);
+        if(div.contentEditable === 'false'){
+            div.contentEditable = true;
+        }else{
+            div.contentEditable = false;
+        }
+        console.log(div.contentEditable);
+    }
+
     return (
         records.map((record) => {
             return (
-                <div className="row extrasWrapper">  
-                    <div className='col-id'>
+                <div id={`ExtrasWrap${record.Id}`} className="row extrasWrapper" onDoubleClick={() => {editExtra(record.Id)}} contentEditable='false'>  
+                    <div className='col-id' contenteditable='false'>
                         <button onClick={() => {deleteExtraData(record.Id)}} className='deleteButton' onMouseOver={e => (e.currentTarget.firstChild.src = deleteWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = deleteBlack)}><img src={deleteBlack} alt='X'/></button>    
                     </div>             
                     <div className='col-1'>{record.Time}</div>
@@ -40,7 +50,7 @@ const ConsiliumExtraData = ({RecID}) => {
                     <div className='col-consilium'>{record.Doctor}</div>
                     <div className='col-consilium'>{record.Specialist}</div>
                     <div className='col-consilium'>{record.Reason}</div>
-                    <div className='col-consilium'>{record.PassTime}</div>
+                    <div className={record.PassTime !== '' ? 'col-consilium green' : 'col-consilium red'}>{record.PassTime}</div>
                     <div className='col-consilium'>{record.AcceptBy}</div>
                 </div>
             );

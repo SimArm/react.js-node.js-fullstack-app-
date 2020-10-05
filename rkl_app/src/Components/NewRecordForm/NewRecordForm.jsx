@@ -25,7 +25,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
     const [doctorValue, setDoctor] = useState('');
     const [specialistValue, setSpecialist] = useState('');
     const [reasonValue, setReason] = useState('');
-    const [passTimeValue, setPassTime] = useState(laikas);
+    const [passTimeValue, setPassTime] = useState('');
     const [acceptByValue, setAcceptBy] = useState('');
 
     useEffect(() => {
@@ -86,16 +86,16 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
     }
 
     const onSaveConsultation = () => {                                                                                                                          
-        const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
-        fetch(`http://172.18.218.15:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        fetch(`http://172.18.218.15:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
-        const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
-        fetch(`http://172.18.218.15:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        fetch(`http://172.18.218.15:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
@@ -129,7 +129,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
-                    <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autocomplete="off" required/>
+                    <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autoComplete="off" required/>
                     <datalist id='depSuggest'>
                         <option value={commonValues(database, 'Department')[0]}></option>
                         <option value={commonValues(database, 'Department')[1]}></option>
@@ -147,7 +147,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Room">Palata:</label>
-                    <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autocomplete="off" required/>
+                    <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" required/>
                     <datalist id='rSuggest'>
                         <option value={commonValues(database, 'Room')[0]}></option>
                         <option value={commonValues(database, 'Room')[1]}></option>
@@ -158,7 +158,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
-                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" list="pSuggest" value={patientValue} onChange={updatePatient} autocomplete="off" required/>
+                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" list="pSuggest" value={patientValue} onChange={updatePatient} autoComplete="off" required/>
                     <datalist id='pSuggest'>
                         <option value={commonValues(database, 'Patient')[0]}></option>
                         <option value={commonValues(database, 'Patient')[1]}></option>
@@ -169,7 +169,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
-                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autocomplete="off" required/>
+                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autoComplete="off" required/>
                     <datalist id='docSuggest'>
                         <option value={commonValues(database, 'Doctor')[0]}></option>
                         <option value={commonValues(database, 'Doctor')[1]}></option>
@@ -180,7 +180,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
-                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autocomplete="off" required/>
+                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autoComplete="off" required/>
                     <datalist id='specSuggest'>
                         <option value={commonValues(database, 'Specialist')[0]}></option>
                         <option value={commonValues(database, 'Specialist')[1]}></option>
@@ -191,7 +191,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
-                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autocomplete="off" required/>
+                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autoComplete="off" required/>
                     <datalist id='reasSuggest'>
                         <option value={commonValues(database, 'Reason')[0]}></option>
                         <option value={commonValues(database, 'Reason')[1]}></option>
@@ -202,11 +202,11 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
-                    <input type="time" placeholder={laikas} name="PassTime" id="PassTime" value={passTimeValue || laikas} onChange={updatePassTime}/>
+                    <input type="time" name="PassTime" id="PassTime" onChange={updatePassTime}/>
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
-                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autocomplete="off" required/>
+                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autoComplete="off" required/>
                     <datalist id='accepSuggest'>
                         <option value={commonValues(database, 'AcceptBy')[0]}></option>
                         <option value={commonValues(database, 'AcceptBy')[1]}></option>

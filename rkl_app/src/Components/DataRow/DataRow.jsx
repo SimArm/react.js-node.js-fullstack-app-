@@ -22,6 +22,12 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
             });
             wrapper.classList.replace('hideElements','showElements');
         }
+        wrapper.scrollIntoView();
+    }
+    const passTimeClasses = () => {
+        let colorClass = PassTime !== '' ? 'green' : 'red';
+        let tabClass = isDisabled ? "col-consilium" : 'col-custom';
+        return `${tabClass} ${colorClass}`;
     }
 
     return (
@@ -38,7 +44,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Doctor}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Specialist}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Reason}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{PassTime}</div>
+                <div className={passTimeClasses()}>{PassTime}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
             </div>
             <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
