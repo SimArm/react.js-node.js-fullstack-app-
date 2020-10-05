@@ -6,8 +6,6 @@ import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraData
 
 const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
 
-    const getMonthFromString = (mon) => new Date(Date.parse(mon +" 1, 2020")).getMonth()+1 ;
-
     const urgencyClasses = () => {
        return `${isDisabled ? 'is-disabled' : 'col-custom'} ${Urgency === 'Planinis' ? 'planinis' : 'skubus'}`
     }
@@ -31,7 +29,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
             <div className="row tablerow" onDoubleClick={showHide}>
                 <div className="col-id">{ID || 1}</div>
                 <div className="col-1">
-                    {`${getMonthFromString(Time.slice(0,4))}/${Time.slice(4,7)} `}{Time.slice(11,17)}
+                    {`${(Time.slice(0,2))}/${Time.slice(3,5)} `}{Time.slice(10,16)}
                 </div>
                 <div className={urgencyClasses()}>{Urgency}</div>
                 <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Department}</div>

@@ -8,7 +8,13 @@ const NewRecordForm = ({ConsiliumTab}) => {
         return time;
     }
 
-    const currentDate = Date().slice(4,15);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    const getMonthFromString = (mon, year) => new Date(Date.parse(mon +` 1, ${year}`)).getMonth()+1 ;
+
+    const currentDate = () => {
+        let currentMonth = getMonthFromString(Date().slice(4,7),Date().slice(11,15));
+        console.log(currentMonth);
+        return `${currentMonth}${Date().slice(7,15)}`;
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
     const [laikas, setLaikas] = useState(currentTime());
     const [timeValue, setTime] = useState(laikas);
@@ -80,14 +86,14 @@ const NewRecordForm = ({ConsiliumTab}) => {
     }
 
     const onSaveConsultation = () => {                                                                                                                          
-        const record = {Time: currentDate + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
         fetch(`http://172.18.218.15:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
-        const record = {Time: currentDate + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
         fetch(`http://172.18.218.15:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));

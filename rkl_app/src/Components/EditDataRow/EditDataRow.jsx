@@ -8,7 +8,7 @@ import deleteWhite from '../../CssLib/delete-white.svg';
 const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, Consilium}) => {
     
     const timePlaceHolder = () => {
-        const time = Time1.slice(11,17);
+        const time = Time1.slice(10,15);
         return time;
      }
 
@@ -74,14 +74,14 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
     }
 
     const consEditSave = () => {                                                                                                                          
-        const record = {id: ID1 , Time: Time1.slice(0,11) + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {id: ID1 , Time: Time1.slice(0,10) + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         fetch(`http://172.18.218.15:5001/consultation/edit?ID=${record.id}&Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
         window.location.reload(false);
     }
 
     const consilEditSave = () => {                                                                                                                          
-        const record = {id: ID1 , Time: Time1.slice(0,11) + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
+        const record = {id: ID1 , Time: Time1.slice(0,10) + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
         fetch(`http://172.18.218.15:5001/consilium/edit?ID=${record.id}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
         window.location.reload(false);
@@ -103,7 +103,7 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
 
     useEffect(() => {
         const timePlaceHolder = () => {
-            const time = Time1.slice(11,17);
+            const time = Time1.slice(10,15);
             return time;
          }
         setTime(timePlaceHolder);

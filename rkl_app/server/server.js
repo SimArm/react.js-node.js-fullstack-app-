@@ -310,10 +310,7 @@ app.get('/report', (req, res) => {
 }); 
 
 const databaseDateFormat = (date,time) => { 
-  const monthShortNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const fullDate = `${monthShortNames[parseInt(date.slice(5,7))]} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
-  return fullDate;
+  return `${date.slice(5,7)} ${date.slice(8,10)} ${date.slice(0,4)}${time}`;
 }
 
 const toTitleCase = (phrase) => {
