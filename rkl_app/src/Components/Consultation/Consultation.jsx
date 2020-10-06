@@ -12,7 +12,7 @@ const Consultation = () => {
     },[]);
 
     const fetchData = () => {
-        fetch(`http://172.18.218.15:5001/consultation`)
+        fetch(`http://172.18.218.23:5001/consultation`)
         .then((response) => response.json())
         .then((data) => setData(data));
     }

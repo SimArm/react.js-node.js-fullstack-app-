@@ -12,7 +12,7 @@ const Consilium = () => {
     },[]);
 
     const fetchData = () => {
-        fetch(`http://172.18.218.15:5001/consilium`)
+        fetch(`http://172.18.218.23:5001/consilium`)
             .then((response) => response.json())
             .then((response) => setData(response));
     }

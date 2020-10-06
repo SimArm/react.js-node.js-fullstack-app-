@@ -12,7 +12,7 @@ const ConsiliumExtraData = ({RecID}) => {
     },[]);
 
     const fetchData = () => {
-        fetch(`http://172.18.218.15:5001/consiliumExtras`)
+        fetch(`http://172.18.218.23:5001/consiliumExtras`)
             .then((response) => response.json())
             .then((response) => setData(response));
     }
@@ -22,7 +22,7 @@ const ConsiliumExtraData = ({RecID}) => {
 
 
     const deleteExtraData = (recId) => {
-        window.confirm('Ar tikrai ištrinti šį įrašą?') && fetch(`http://172.18.218.15:5001/consiliumExtras/delete?ID=${recId}`)
+        window.confirm('Ar tikrai ištrinti šį įrašą?') && fetch(`http://172.18.218.23:5001/consiliumExtras/delete?ID=${recId}`)
         .then(response => response.json()).catch(err => console.error(err)) &&
         window.location.reload(false);
     }

@@ -88,14 +88,14 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
     const onSaveConsultation = () => {                                                                                                                          
         const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
-        fetch(`http://172.18.218.15:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
+        fetch(`http://172.18.218.23:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
         const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
         Object.values(record).every(x => (x !== null && x !== '')) && 
-        fetch(`http://172.18.218.15:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
+        fetch(`http://172.18.218.23:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
@@ -117,6 +117,11 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
             });
         })
         return commonValuesArr;
+    }
+
+
+    const fillValues = (arr, property) => {
+        let valuesArray = arr.map()  // similar to common values, but get different property from same obj and update value
     }
 
     return (

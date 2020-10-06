@@ -62,7 +62,7 @@ const ConsiliumExtraDataForm = (RecID) => {
 
     const onSaveConsilium = () => {
         const record = {ConsId: RecID.RecID ,Time: timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.15:5001/consilium/addextra?ConsId=${record.ConsId}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        fetch(`http://172.18.218.23:5001/consilium/addextra?ConsId=${record.ConsId}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
         window.location.reload(false);
     }

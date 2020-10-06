@@ -1,5 +1,5 @@
 {
-  "homepage": "http://172.18.218.15/",
+  "homepage": "http://172.18.218.23/",
   "name": "rkl_app",
   "version": "0.1.0",
   "private": true,
@@ -23,7 +23,7 @@
     "dev:start": "nodemon ./server-build/index.js",
     "dev": "npm-run-all --parallel build dev:*"
   },
-  "proxy": "http://172.18.218.15:5001",
+  "proxy": "http://172.18.218.23:5001",
   "eslintConfig": {
     "extends": "react-app"
   },
