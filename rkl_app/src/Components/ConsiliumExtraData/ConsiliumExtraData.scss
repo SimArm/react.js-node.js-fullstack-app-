@@ -27,7 +27,16 @@
         background-color: rgb(248, 169, 164);
     }
 }
+.editable { 
+    display: none;
+}
 .extrasWrapper:hover {
     background-color: rgba(0, 0, 0, 0.08);
     cursor: pointer;
+}
+.additionalData {
+    margin-bottom: 15px;
+}
+.editRow{
+    margin-bottom: 20px;
 }

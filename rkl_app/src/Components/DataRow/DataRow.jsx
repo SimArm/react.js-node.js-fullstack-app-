@@ -13,8 +13,32 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
     const showHide = () => {
         const wrapper = document.getElementById(`Wrapper${ID}`);
         const wrapperClasses = wrapper.classList.contains('showElements');
+        const allExtrasEdits = document.querySelectorAll('.editExtra');
+        const allExtrasDivs = document.querySelectorAll('.extrasWrapper');
+        let anyExtraVisible = false;
+        allExtrasEdits.forEach((el)=>{
+            if(el.classList.contains('visible')) {
+               return anyExtraVisible = true;
+            }   
+        });
         if (wrapperClasses === true) {
             wrapper.classList.replace('showElements','hideElements');
+            allExtrasDivs.forEach((el)=>{
+                el.classList.replace('editable','non-editable');
+            });
+            allExtrasEdits.forEach((el)=>{
+                el.classList.replace('visible', 'hidden');
+            });
+        } else if (anyExtraVisible === true) {
+
+            allExtrasDivs.forEach((el)=>{
+                el.classList.replace('editable','non-editable');
+            });
+            allExtrasEdits.forEach((el)=>{
+                el.classList.replace('visible', 'hidden');
+            });
+            anyExtraVisible = false;
+
         } else {
             const allWrappers = document.querySelectorAll('.recWrap');
             allWrappers.forEach((el)=>{
@@ -24,6 +48,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
         }
         wrapper.scrollIntoView();
     }
+
     const passTimeClasses = () => {
         let colorClass = PassTime !== '' ? 'green' : 'red';
         let tabClass = isDisabled ? "col-consilium" : 'col-custom';

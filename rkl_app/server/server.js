@@ -65,9 +65,9 @@ app.get('/consultation/add', (req, res) => {
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 app.get('/consilium/add', (req, res) => {
@@ -77,9 +77,9 @@ app.get('/consilium/add', (req, res) => {
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 app.get('/consilium/addextra', (req, res) => {
@@ -89,9 +89,9 @@ app.get('/consilium/addextra', (req, res) => {
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 /* Editing existing data*/
@@ -103,9 +103,9 @@ app.get('/consultation/edit', (req, res) => {
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 app.get('/consilium/edit', (req, res) => {
@@ -115,10 +115,24 @@ app.get('/consilium/edit', (req, res) => {
     console.log(err);
     pool.end();
   })
-    .catch(err => {
-      console.log(err);
-    });
+  .catch(err => {
+    console.log(err);
+  });
 });
+
+app.get('/consilium/editextra', (req, res) => {
+  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
+  const EDIT_EXTRAS_QUERY = `UPDATE ConsiliumExtras SET Time='${Time}', Department='${toTitleCase(Department)}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}' WHERE ID='${ID}' `;
+  pool.query(EDIT_EXTRAS_QUERY, (err, results) =>{
+    console.log(err);
+    pool.end();
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
+
 /* Delete existing data */
 
 app.get('/consultation/delete', (req, res) => {

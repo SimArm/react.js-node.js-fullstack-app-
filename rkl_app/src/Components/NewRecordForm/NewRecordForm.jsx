@@ -105,18 +105,17 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
         let valuesArray = arr.map(el => el[property]) || [];
         let commonValuesArr = [];
 
-        for (let i=0; i<5; i++) {
-
+        valuesArray.forEach(()=>{
             let commonValue = valuesArray.sort((a,b) =>
-                    valuesArray.filter(v => v===a).length
-                    - valuesArray.filter(v => v===b).length
-                ).pop();
+            valuesArray.filter(v => v===a).length
+            - valuesArray.filter(v => v===b).length
+            ).pop();
             commonValuesArr.push(commonValue);
 
             valuesArray = valuesArray.filter((obj) => {
                 return obj !== commonValue;
             });
-        }
+        })
         return commonValuesArr;
     }
 
@@ -131,11 +130,9 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Department">Skyrius</label>
                     <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autoComplete="off" required/>
                     <datalist id='depSuggest'>
-                        <option value={commonValues(database, 'Department')[0]}></option>
-                        <option value={commonValues(database, 'Department')[1]}></option>
-                        <option value={commonValues(database, 'Department')[2]}></option>
-                        <option value={commonValues(database, 'Department')[3]}></option>
-                        <option value={commonValues(database, 'Department')[4]}></option>
+                        {commonValues(database, 'Department').map((value,index) =>{
+                            return <option value={value}></option>
+                        })}
                     </datalist>
                 </div>
                 <div className={ConsiliumTab && 'disabled'}>
@@ -149,55 +146,45 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Room">Palata:</label>
                     <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" required/>
                     <datalist id='rSuggest'>
-                        <option value={commonValues(database, 'Room')[0]}></option>
-                        <option value={commonValues(database, 'Room')[1]}></option>
-                        <option value={commonValues(database, 'Room')[2]}></option>
-                        <option value={commonValues(database, 'Room')[3]}></option>
-                        <option value={commonValues(database, 'Room')[4]}></option>
+                        {commonValues(database, 'Room').map((val,index) =>{
+                            return (<option value={val}></option>);
+                        })}
                     </datalist>
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
                     <input type="text" placeholder="Pacientas" name="Patient" id="Patient" list="pSuggest" value={patientValue} onChange={updatePatient} autoComplete="off" required/>
                     <datalist id='pSuggest'>
-                        <option value={commonValues(database, 'Patient')[0]}></option>
-                        <option value={commonValues(database, 'Patient')[1]}></option>
-                        <option value={commonValues(database, 'Patient')[2]}></option>
-                        <option value={commonValues(database, 'Patient')[3]}></option>
-                        <option value={commonValues(database, 'Patient')[4]}></option>
+                        {commonValues(database, 'Patient').map((val,index) =>{
+                            return <option value={val}></option>
+                        })}
                     </datalist>
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
                     <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autoComplete="off" required/>
                     <datalist id='docSuggest'>
-                        <option value={commonValues(database, 'Doctor')[0]}></option>
-                        <option value={commonValues(database, 'Doctor')[1]}></option>
-                        <option value={commonValues(database, 'Doctor')[2]}></option>
-                        <option value={commonValues(database, 'Doctor')[3]}></option>
-                        <option value={commonValues(database, 'Doctor')[4]}></option>
+                        {commonValues(database, 'Doctor').map((val,index) =>{
+                            return <option value={val}></option>
+                        })}
                     </datalist>
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
                     <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autoComplete="off" required/>
                     <datalist id='specSuggest'>
-                        <option value={commonValues(database, 'Specialist')[0]}></option>
-                        <option value={commonValues(database, 'Specialist')[1]}></option>
-                        <option value={commonValues(database, 'Specialist')[2]}></option>
-                        <option value={commonValues(database, 'Specialist')[3]}></option>
-                        <option value={commonValues(database, 'Specialist')[4]}></option>
+                        {commonValues(database, 'Specialist').map((val,index) =>{
+                            return <option value={val}></option>
+                        })}
                     </datalist>
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
                     <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autoComplete="off" required/>
                     <datalist id='reasSuggest'>
-                        <option value={commonValues(database, 'Reason')[0]}></option>
-                        <option value={commonValues(database, 'Reason')[1]}></option>
-                        <option value={commonValues(database, 'Reason')[2]}></option>
-                        <option value={commonValues(database, 'Reason')[3]}></option>
-                        <option value={commonValues(database, 'Reason')[4]}></option>
+                        {commonValues(database, 'Reason').map((val,index) =>{
+                            return <option value={val}></option>
+                        })}
                     </datalist>
                 </div>
                 <div>
@@ -208,11 +195,9 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="AcceptBy">Prieme:</label>
                     <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autoComplete="off" required/>
                     <datalist id='accepSuggest'>
-                        <option value={commonValues(database, 'AcceptBy')[0]}></option>
-                        <option value={commonValues(database, 'AcceptBy')[1]}></option>
-                        <option value={commonValues(database, 'AcceptBy')[2]}></option>
-                        <option value={commonValues(database, 'AcceptBy')[3]}></option>
-                        <option value={commonValues(database, 'AcceptBy')[4]}></option>
+                        {commonValues(database, 'AcceptBy').map((val,index) =>{
+                            return <option value={val}></option>
+                        })}
                     </datalist>
                 </div>
                 <button onClick={ConsiliumTab ? onSaveConsilium : onSaveConsultation}>Saugoti</button>

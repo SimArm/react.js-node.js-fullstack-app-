@@ -1,0 +1,20 @@
+.editExtra {
+    max-width: 1260px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+    padding: 3px 0 13px 0;
+    div {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        input {
+            text-align: center;
+        }
+    }
+}
+.hidden {
+    display: none;
+}
