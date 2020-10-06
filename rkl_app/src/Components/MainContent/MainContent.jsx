@@ -6,7 +6,7 @@ import ExportingSection from '../ExportingSection/ExportingSection';
 const MainContent = ({disabled, data, Consilium}) => {
     
     const ifConsilium = Consilium;
-    
+
     const [sorting, setSorting] = useState('Time');
     const sortData = (property) => {
         let sortOrder = 1;
@@ -25,7 +25,7 @@ const MainContent = ({disabled, data, Consilium}) => {
     useEffect(() => {
         let scrollId = document.getElementById('contend-id');
         scrollId.scrollTop = scrollId.scrollHeight;
-    });
+    }); 
 
     return (
         <div className="mainContent">
@@ -46,9 +46,10 @@ const MainContent = ({disabled, data, Consilium}) => {
                     </div>
                 </div>
                 <div className="contentBody" id="contend-id">
-                    {Data.sort(sortData(sorting)).map((record) => {
+                    {Data.sort(sortData(sorting)).map((record,index) => {
                             return (
                                 < DataRow 
+                                    Index = {index + 1}
                                     ID = {record.ID}
                                     isDisabled = {disabled}
                                     Time = {record.Time}

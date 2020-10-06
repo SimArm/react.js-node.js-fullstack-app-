@@ -4,10 +4,10 @@ import "./DataRow.scss";
 import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
 import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 
-const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
+const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
 
     const urgencyClasses = () => {
-       return `${isDisabled ? 'is-disabled' : 'col-custom'} ${Urgency === 'Planinis' ? 'planinis' : 'skubus'}`
+       return `${isDisabled ? 'is-disabled' : 'col-custom'} ${Urgency === 'Planinis' ? 'planned' : 'urgent'}`
     }
 
     const showHide = () => {
@@ -58,7 +58,7 @@ const DataRow = ({isDisabled, Time, ID, Department, Urgency, Room, Patient, Doct
     return (
         <div id={`Wrapper${ID}`} className={'hideElements recWrap'}>
             <div className="row tablerow" onDoubleClick={showHide}>
-                <div className="col-id">{ID || 1}</div>
+                <div className="col-id">{Index || 1}</div>
                 <div className="col-1">
                     {`${(Time.slice(0,2))}/${Time.slice(3,5)} `}{Time.slice(10,16)}
                 </div>
