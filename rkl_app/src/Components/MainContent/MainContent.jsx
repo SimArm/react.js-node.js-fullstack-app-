@@ -7,7 +7,7 @@ const MainContent = ({disabled, data, Consilium}) => {
     
     const ifConsilium = Consilium;
 
-    const [sorting, setSorting] = useState('Time');
+    const [sorting, setSorting] = useState('Id');
     const sortData = (property) => {
         let sortOrder = 1;
         if(property[0] === "-") {

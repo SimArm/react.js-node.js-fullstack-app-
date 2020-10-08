@@ -183,15 +183,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
-                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" list="pSuggest" value={patientValue} onChange={updatePatient} autoComplete="off" required/>
-                    <datalist id='pSuggest'>
-                        {(doctorValue!=='') ?
-                             fillValues(database,'Doctor', doctorValue, 'Patient').map((val,index) => {
-                            return <option value={val}></option>
-                             }) : commonValues(database, 'Patient').map((val,index) =>{
-                            return <option value={val}></option>
-                        })}
-                    </datalist>
+                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient} autoComplete="off" required/>
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
