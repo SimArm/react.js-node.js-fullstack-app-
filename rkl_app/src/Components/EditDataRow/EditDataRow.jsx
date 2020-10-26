@@ -130,28 +130,28 @@ const EditDataRow = ({Time1, ID1, Department1, Urgency1, Room1, Patient1, Doctor
                     </select>
                 </div>}
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Department1} name="Department" value={departmentValue} onChange={updateDepartment} required/>
+                    <input type="text" placeholder={Department1 || 'Skyrius'} name="Department" value={departmentValue} onChange={updateDepartment} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Room1} name="Room" value={roomValue} onChange={updateRoom} required/>
+                    <input type="text" placeholder={Room1 || 'Palata'} name="Room" value={roomValue} onChange={updateRoom} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Patient1} name="Patient" value={patientValue} onChange={updatePatient} required/>
+                    <input type="text" placeholder={Patient1 || 'Pacientas'} name="Patient" value={patientValue} onChange={updatePatient} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Doctor1} name="Doctor" value={doctorValue} onChange={updateDoctor} required/>
+                    <input type="text" placeholder={Doctor1 || 'Kviec. gyd.'} name="Doctor" value={doctorValue} onChange={updateDoctor} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Specialist1} name="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
+                    <input type="text" placeholder={Specialist1 || 'Specialistas'} name="Specialist" value={specialistValue} onChange={updateSpecialist} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={Reason1} name="Reason" value={reasonValue} onChange={updateReason} required/>
+                    <input type="text" placeholder={Reason1 || 'Priezastis'} name="Reason" value={reasonValue} onChange={updateReason} required/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
                     <input type="time" placeholder={PassTime1} name="PassTime" value={passTimeValue} onChange={updatePassTime}/>
                 </div>
                 <div className={Consilium !== true ? 'consultInput' : 'consilInput'}>
-                    <input type="text" placeholder={AcceptBy1} name="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
+                    <input type="text" placeholder={AcceptBy1 || 'Prieme'} name="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
                 </div>
                 <button onClick={Consilium !== true ? consEditSave : consilEditSave} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
             </div>

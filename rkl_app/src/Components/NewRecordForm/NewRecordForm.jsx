@@ -88,14 +88,12 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
 
     const onSaveConsultation = () => {                                                                                                                          
         const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
-        Object.values(record).every(x => (x !== null && x !== '')) && 
         fetch(`http://172.18.218.23:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
         const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
-        Object.values(record).every(x => (x !== null && x !== '')) && 
         fetch(`http://172.18.218.23:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
@@ -142,16 +140,27 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
         
     }
 
+    const handleEnter = (event) => {
+        if (event.keyCode === 13) {
+          const form = event.target.form;
+          const index = Array.prototype.indexOf.call(form, event.target);
+          form.elements[index + 1].focus();
+          event.preventDefault();
+        }
+      }
+
+
     return (
         <div className="newRecordWrapper">
             <form>
+            <button type='submit' onclick="return false;" className='disabled'></button>
                 <div>
                     <label htmlFor="Time">Laikas</label>
-                    <input type="time" placeholder={laikas} name="Time" id="Time" value={timeValue || laikas} onChange={updateTime}/>
+                    <input type="time" placeholder={laikas} name="Time" id="Time" value={timeValue || laikas} onChange={updateTime} onKeyDown={handleEnter}/>
                 </div>
                 <div>
                     <label htmlFor="Department">Skyrius</label>
-                    <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autoComplete="off" required/>
+                    <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='depSuggest'>
                         { (doctorValue!=='') ?
                              fillValues(database,'Doctor', doctorValue, 'Department').map((val,index) => {
@@ -171,7 +180,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Room">Palata:</label>
-                    <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" required/>
+                    <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='rSuggest'>
                         {(doctorValue!=='') ?
                              fillValues(database,'Doctor', doctorValue, 'Room').map((val,index) => {
@@ -183,11 +192,11 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Patient">Pacientas:</label>
-                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient} autoComplete="off" required/>
+                    <input type="text" placeholder="Pacientas" name="Patient" id="Patient" value={patientValue} onChange={updatePatient} autoComplete="off" onKeyDown={handleEnter}/>
                 </div>
                 <div>
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
-                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autoComplete="off" required/>
+                    <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='docSuggest'>
                         {(doctorValue!=='') ?
                              fillValues(database,'Department', departmentValue, 'Doctor').map((val,index) => {
@@ -199,7 +208,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Specialist">Specialistas:</label>
-                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autoComplete="off" required/>
+                    <input type="text" placeholder="Specialistas" name="Specialist" id="Specialist" list="specSuggest" value={specialistValue} onChange={updateSpecialist} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='specSuggest'>
                         {(doctorValue!=='') ?
                              fillValues(database,'Doctor', doctorValue, 'Specialist').map((val,index) => {
@@ -211,7 +220,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="Reason">Priežastis:</label>
-                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autoComplete="off" required/>
+                    <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='reasSuggest'>
                         {(doctorValue!=='') ?
                              fillValues(database,'Doctor', doctorValue, 'Reason').map((val,index) => {
@@ -223,11 +232,11 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                 </div>
                 <div>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
-                    <input type="time" name="PassTime" id="PassTime" onChange={updatePassTime}/>
+                    <input type="time" name="PassTime" id="PassTime" onChange={updatePassTime} onKeyDown={handleEnter}/>
                 </div>
                 <div>
                     <label htmlFor="AcceptBy">Prieme:</label>
-                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autoComplete="off" required/>
+                    <input type="text" placeholder="Prieme" name="AcceptBy" id="AcceptBy" list="accepSuggest" value={acceptByValue} onChange={updateAcceptBy} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='accepSuggest'>
                         {(doctorValue!=='') ?
                              fillValues(database,'Doctor', doctorValue, 'AcceptBy').map((val,index) => {
