@@ -49,8 +49,14 @@ const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patien
         wrapper.scrollIntoView();
     }
 
-    const passTimeClasses = () => {
-        let colorClass = PassTime !== '' ? 'green' : 'red';
+    const rowDivClasses = (innerValue) => {
+        let colorClass = innerValue !== '' ? '' : 'red';
+        let tabClass = isDisabled ? "col-consilium" : 'col-custom';
+        return `${tabClass} ${colorClass}`;
+    }
+
+    const rowDivTimeClasses = (innerValue) => {
+        let colorClass = innerValue !== '' ? 'green' : 'red';
         let tabClass = isDisabled ? "col-consilium" : 'col-custom';
         return `${tabClass} ${colorClass}`;
     }
@@ -62,15 +68,15 @@ const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patien
                 <div className="col-1">
                     {`${(Time.slice(0,2))}/${Time.slice(3,5)} `}{Time.slice(10,16)}
                 </div>
-                <div className={urgencyClasses()}>{Urgency}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Department}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Room}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Patient}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Doctor}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Specialist}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{Reason}</div>
-                <div className={passTimeClasses()}>{PassTime}</div>
-                <div className={isDisabled ? "col-consilium" : 'col-custom' }>{AcceptBy}</div>
+                <div className={urgencyClasses(Urgency)}>{Urgency}</div>
+                <div className={rowDivClasses(Department)}>{Department}</div>
+                <div className={rowDivClasses(Room)}>{Room}</div>
+                <div className={rowDivClasses(Patient)}>{Patient}</div>
+                <div className={rowDivClasses(Doctor)}>{Doctor}</div>
+                <div className={rowDivClasses(Specialist)}>{Specialist}</div>
+                <div className={rowDivClasses(Reason)}>{Reason}</div>
+                <div className={rowDivTimeClasses(PassTime)}>{PassTime}</div>
+                <div className={rowDivClasses(AcceptBy)}>{AcceptBy}</div>
             </div>
             <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
             {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
