@@ -50,7 +50,8 @@ const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patien
     }
 
     const rowDivClasses = (innerValue) => {
-        let colorClass = innerValue !== '' ? '' : 'red';
+        let consultColor = innerValue !== '' ? 'green' : 'red';
+        let colorClass = isDisabled ? 'white' : consultColor;
         let tabClass = isDisabled ? "col-consilium" : 'col-custom';
         return `${tabClass} ${colorClass}`;
     }
