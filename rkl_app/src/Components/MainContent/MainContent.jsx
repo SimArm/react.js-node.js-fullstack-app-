@@ -36,13 +36,14 @@ const MainContent = ({disabled, data, Consilium}) => {
                         <div className="col-1 head-sect-1" onClick={() => setSorting('Time')}>Data</div>
                         <div className={`${disabled ? 'is-disabled' : 'col-custom'} head-sect-1`} onClick={() => setSorting('Urgency')}>Skubus ar Planinis</div>
                         <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Department')}>Skyrius</div>
-                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Room')}>Palatos nr.</div>
+                        <div className='col-room head-sect-2' onClick={() => setSorting('Room')}>Palatos nr.</div>
                         <div className={`${disabled ? "col-consilium" : 'col-custom'} head-sect-2`} onClick={() => setSorting('Patient')}>Pacientas</div>
                         <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-2`} onClick={() => setSorting('Doctor')}>Kviečiantysis gyd.</div>
                         <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-3`} onClick={() => setSorting('Specialist')}>Specialistas</div>
                         <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-3`} onClick={() => setSorting('Reason')}>Priežastis</div>
-                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-4`} onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
+                        <div className='col-passtime head-sect-4' onClick={() => setSorting('PassTime')}>Perdavimo laikas</div>
                         <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-5`} onClick={() => setSorting('AcceptBy')}>Priemė</div>
+                        <div className={`${disabled ? 'col-consilium' : 'col-custom'} head-sect-6`}>Komentaras</div>
                     </div>
                 </div>
                 <div className="contentBody" id="contend-id">
@@ -62,6 +63,7 @@ const MainContent = ({disabled, data, Consilium}) => {
                                     Reason = {record.Reason}
                                     PassTime = {record.PassTime}
                                     AcceptBy = {record.AcceptBy}
+                                    Comment = {record.Comment}
                                     ConsiliumTab = {ifConsilium}
                                 />
                             );

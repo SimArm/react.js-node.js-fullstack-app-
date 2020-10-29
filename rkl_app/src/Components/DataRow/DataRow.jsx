@@ -4,7 +4,7 @@ import "./DataRow.scss";
 import ConsiliumExtraData from '../ConsiliumExtraData/ConsiliumExtraData';
 import ConsiliumExtraDataForm from '../ConsiliumExtraDataForm/ConsiliumExtraDataForm';
 
-const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab}) => {
+const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, ConsiliumTab, Comment}) => {
 
     const urgencyClasses = () => {
        return `${isDisabled ? 'is-disabled' : 'col-custom'} ${Urgency === 'Planinis' ? 'planned' : 'urgent'}`
@@ -50,36 +50,42 @@ const DataRow = ({Index, isDisabled, Time, ID, Department, Urgency, Room, Patien
     }
 
     const rowDivClasses = (innerValue) => {
-        let consultColor = innerValue !== '' ? 'green' : 'red';
+        let consultColor = innerValue == '' && 'red';
         let colorClass = isDisabled ? 'white' : consultColor;
-        let tabClass = isDisabled ? "col-consilium" : 'col-custom';
+        let tabClass = isDisabled ? 'col-consilium' : 'col-custom';
         return `${tabClass} ${colorClass}`;
+    }
+
+    const rowDivClassesNumbers = (innerValue) => {
+        let consultColor = innerValue == '' && 'red';
+        let colorClass = isDisabled ? 'white' : consultColor;
+        return colorClass;
     }
 
     const rowDivTimeClasses = (innerValue) => {
         let colorClass = innerValue !== '' ? 'green' : 'red';
-        let tabClass = isDisabled ? "col-consilium" : 'col-custom';
-        return `${tabClass} ${colorClass}`;
+        return `col-passTime ${colorClass}`;
     }
 
     return (
         <div id={`Wrapper${ID}`} className={'hideElements recWrap'}>
-            <div className="row tablerow" onDoubleClick={showHide}>
-                <div className="col-id">{Index || 1}</div>
-                <div className="col-1">
+            <div className='row tablerow' onDoubleClick={showHide}>
+                <div className='col-id'>{Index || 1}</div>
+                <div className='col-1'>
                     {`${(Time.slice(0,2))}/${Time.slice(3,5)} `}{Time.slice(10,16)}
                 </div>
                 <div className={urgencyClasses(Urgency)}>{Urgency}</div>
                 <div className={rowDivClasses(Department)}>{Department}</div>
-                <div className={rowDivClasses(Room)}>{Room}</div>
+                <div className={`col-room ${rowDivClassesNumbers(Room)}`}>{Room}</div>
                 <div className={rowDivClasses(Patient)}>{Patient}</div>
                 <div className={rowDivClasses(Doctor)}>{Doctor}</div>
                 <div className={rowDivClasses(Specialist)}>{Specialist}</div>
                 <div className={rowDivClasses(Reason)}>{Reason}</div>
                 <div className={rowDivTimeClasses(PassTime)}>{PassTime}</div>
                 <div className={rowDivClasses(AcceptBy)}>{AcceptBy}</div>
+                <div className={isDisabled ? 'col-consilium' : 'col-custom'}>{Comment}</div>
             </div>
-            <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab}/>
+            <EditDataRow Time1={Time} ID1={ID} Department1={Department} Urgency1={Urgency} Room1={Room} Patient1={Patient} Doctor1={Doctor} Specialist1={Specialist} Reason1={Reason} PassTime1={PassTime} AcceptBy1={AcceptBy} Consilium={ConsiliumTab} Comment1={Comment}/>
             {ConsiliumTab === true && <ConsiliumExtraData RecID={ID}/> }
             {ConsiliumTab === true && <ConsiliumExtraDataForm RecID={ID}/> }        
         </div>  

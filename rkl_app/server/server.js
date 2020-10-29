@@ -59,8 +59,8 @@ app.get('/consiliumExtras', (req, res) => {
 /* Inserting into DB */
 
 app.get('/consultation/add', (req, res) => {
-  const {Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const INSERT_CONSULT_QUERY = `INSERT INTO Consultation (Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy) VALUES ('${Time}', '${toTitleCase(Department)}', '${Urgency}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}') `;
+  const {Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const INSERT_CONSULT_QUERY = `INSERT INTO Consultation (Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment) VALUES ('${Time}', '${toTitleCase(Department)}', '${Urgency}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}', '${Comment}') `;
   pool.query(INSERT_CONSULT_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
@@ -71,8 +71,8 @@ app.get('/consultation/add', (req, res) => {
 });
 
 app.get('/consilium/add', (req, res) => {
-  const {Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const INSERT_CONSIL_QUERY = `INSERT INTO Consilium (Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy) VALUES ('${Time}', '${toTitleCase(Department)}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}') `;
+  const {Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const INSERT_CONSIL_QUERY = `INSERT INTO Consilium (Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment) VALUES ('${Time}', '${toTitleCase(Department)}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}', '${Comment}') `;
   pool.query(INSERT_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
@@ -97,8 +97,8 @@ app.get('/consilium/addextra', (req, res) => {
 /* Editing existing data*/
 
 app.get('/consultation/edit', (req, res) => {
-  const {ID, Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const EDIT_CONSULT_QUERY = `UPDATE Consultation SET Time='${Time}', Department='${toTitleCase(Department)}', Urgency='${Urgency}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}' WHERE ID='${ID}' `;
+  const {ID, Time, Department, Urgency, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const EDIT_CONSULT_QUERY = `UPDATE Consultation SET Time='${Time}', Department='${toTitleCase(Department)}', Urgency='${Urgency}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}', Comment='${Comment}' WHERE ID='${ID}' `;
   pool.query(EDIT_CONSULT_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
@@ -109,8 +109,8 @@ app.get('/consultation/edit', (req, res) => {
 });
 
 app.get('/consilium/edit', (req, res) => {
-  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const EDIT_CONSIL_QUERY = `UPDATE Consilium SET Time='${Time}', Department='${toTitleCase(Department)}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}' WHERE ID='${ID}' `;
+  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const EDIT_CONSIL_QUERY = `UPDATE Consilium SET Time='${Time}', Department='${toTitleCase(Department)}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}', Comment='${Comment}' WHERE ID='${ID}' `;
   pool.query(EDIT_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();

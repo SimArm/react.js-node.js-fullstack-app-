@@ -3,7 +3,7 @@ import './EditConsiliumExtra.scss';
 import saveBlack from '../../CssLib/done-black.svg';
 import saveWhite from '../../CssLib/done-white.svg';
 
-const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, }) => {
+const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, Specialist1, Reason1, PassTime1, AcceptBy1, Comment1}) => {
     
     const timePlaceHolder = () => {
         const time = Time1.slice(10,15);
@@ -19,6 +19,7 @@ const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, 
     const [reasonValue, setReason] = useState(Reason1);
     const [passTimeValue, setPassTime] = useState(PassTime1);
     const [acceptByValue, setAcceptBy] = useState(AcceptBy1);
+    const [commentValue, setComment] = useState(Comment1);
 
     const updateTime = (event) => {
         const { value } = event.target;
@@ -65,9 +66,14 @@ const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, 
         setAcceptBy(value);
     }
 
+    const updateComment = (event) => {
+        const { value } = event.target;
+        setComment(value);
+    }
+
     const extraSave = () => {                                                                                                                          
-        const record = {id: ID1 , Time: Time1.slice(0,10) + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.23:5001/consilium/editextra?ID=${record.id}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        const record = {id: ID1 , Time: Time1.slice(0,10) + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue, Comment:commentValue};
+        fetch(`http://172.18.218.23:5001/consilium/editextra?ID=${record.id}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}&Comment=${record.Comment}`)
         .then(response => response.json()).catch(err => console.error(err));
         window.location.reload(false);
     }
@@ -86,6 +92,7 @@ const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, 
         setReason(Reason1);
         setPassTime(PassTime1);
         setAcceptBy(AcceptBy1);
+        setComment(Comment1);
     },[ID1]);
 
     return (
@@ -99,7 +106,7 @@ const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, 
             <div className='col-consilium'>
                 <input type="text" placeholder={Department1} name="Department" value={departmentValue} onChange={updateDepartment} required/>
             </div>
-            <div className='col-consilium'>
+            <div className='col-room'>
                 <input type="text" placeholder={Room1} name="Room"  value={roomValue} onChange={updateRoom} required/>
             </div>
             <div className='col-consilium'>
@@ -114,11 +121,14 @@ const EditConsiliumExtra = ({Time1, ID1, Department1, Room1, Patient1, Doctor1, 
             <div className='col-consilium'>
                 <input type="text" placeholder={Reason1} name="Reason" value={reasonValue} onChange={updateReason} required/>
             </div>
-            <div className='col-consilium'>
+            <div className='col-passTime'>
                 <input type="time" placeholder={PassTime1} name="PassTime" value={passTimeValue} onChange={updatePassTime}/>
             </div>
             <div className='col-consilium'>
                 <input type="text" placeholder={AcceptBy1} name="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
+            </div>
+            <div className='col-consilium'>
+                <input type="text" placeholder={Comment1} name="Comment" value={commentValue} onChange={updateComment} required/>
             </div>
         </div>
     );

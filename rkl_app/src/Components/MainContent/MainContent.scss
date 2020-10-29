@@ -28,13 +28,19 @@
         display: none;
     }
     .col-custom {
-        width: calc((91.6% - 45px)/9);
+        width: calc((91.6% - 225px)/8);
     }
     .col-id {
         width: 45px;
     }
+    .col-room {
+        width: 80px;
+    }
+    .col-passtime {
+        width: 100px;
+    }
     .col-consilium {
-        width: calc((91.6% - 45px)/8);
+        width: calc((91.6% - 225px)/7);
     }
 }
 
@@ -63,4 +69,7 @@
 }
 .head-sect-5{
     background-color: rgb(250, 215, 150);
+}
+.head-sect-6{
+    background-color: rgb(255, 255, 255);
 }

@@ -59,12 +59,12 @@ const ConsiliumExtraData = ({RecID}) => {
                         </div>             
                         <div className='col-1'>{record.Time}</div>
                         <div className='col-consilium'>{record.Department}</div>
-                        <div className='col-consilium'>{record.Room}</div>
+                        <div className='col-room'>{record.Room}</div>
                         <div className='col-consilium'>{record.Patient}</div>
                         <div className='col-consilium'>{record.Doctor}</div>
                         <div className='col-consilium'>{record.Specialist}</div>
                         <div className='col-consilium'>{record.Reason}</div>
-                        <div className={record.PassTime !== '' ? 'col-consilium green' : 'col-consilium red'}>{record.PassTime}</div>
+                        <div className={record.PassTime !== '' ? 'col-passTime green' : 'col-passTime red'}>{record.PassTime}</div>
                         <div className='col-consilium'>{record.AcceptBy}</div>
                     </div>
                     <EditConsiliumExtra Time1={record.Time} ID1={record.Id} Department1={record.Department} Room1={record.Room} Patient1={record.Patient} Doctor1={record.Doctor} Specialist1={record.Specialist} Reason1={record.Reason} PassTime1={record.PassTime} AcceptBy1={record.AcceptBy}/>

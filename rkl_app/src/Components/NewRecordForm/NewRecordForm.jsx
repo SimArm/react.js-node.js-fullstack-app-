@@ -28,6 +28,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
     const [reasonValue, setReason] = useState('');
     const [passTimeValue, setPassTime] = useState('');
     const [acceptByValue, setAcceptBy] = useState('');
+    const [commentValue, setComment] = useState('');
 
     useEffect(() => {
         const timer = window.setInterval(() => {
@@ -86,15 +87,20 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
         setAcceptBy(value);
     }
 
+    const updateComment = (event) => {
+        const { value } = event.target;
+        setComment(value);
+    }
+
     const onSaveConsultation = () => {                                                                                                                          
-        const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.23:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Urgency:urgencyValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue, Comment:commentValue};
+        fetch(`http://172.18.218.23:5001/consultation/add?Time=${record.Time}&Department=${record.Department}&Urgency=${record.Urgency}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}&Comment=${record.Comment}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
     const onSaveConsilium = () => {
-        const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.23:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}`)
+        const record = {Time: currentDate() + timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, AcceptBy:acceptByValue, Comment:commentValue};
+        fetch(`http://172.18.218.23:5001/consilium/add?Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${passTimeValue}&AcceptBy=${record.AcceptBy}&Comment=${record.Comment}`)
         .then(response => response.json()).catch(err => console.error(err));
     }
 
@@ -162,8 +168,8 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Department">Skyrius</label>
                     <input type="text" placeholder="Skyrius" name="Department" id="Department" list='depSuggest' value={departmentValue} onChange={updateDepartment} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='depSuggest'>
-                        { (doctorValue!=='') ?
-                             fillValues(database,'Doctor', doctorValue, 'Department').map((val,index) => {
+                        { (specialistValue!=='') ?
+                             fillValues(database,'Specialist', specialistValue, 'Department').map((val,index) => {
                             return <option value={val}></option>
                              }) : commonValues(database, 'Department').map((val,index) =>{
                                 return <option value={val}></option>
@@ -182,8 +188,8 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Room">Palata:</label>
                     <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='rSuggest'>
-                        {(doctorValue!=='') ?
-                             fillValues(database,'Doctor', doctorValue, 'Room').map((val,index) => {
+                        {(departmentValue!=='') ?
+                             fillValues(database,'Department', departmentValue, 'Room').map((val,index) => {
                             return <option value={val}></option>
                              }) : commonValues(database, 'Room').map((val,index) =>{
                             return (<option value={val}></option>);
@@ -198,8 +204,8 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Doctor">Kvieciantysis gydytojas:</label>
                     <input type="text" placeholder="Gydytojas" name="Doctor" id="Doctor" list="docSuggest" value={doctorValue} onChange={updateDoctor} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='docSuggest'>
-                        {(doctorValue!=='') ?
-                             fillValues(database,'Department', departmentValue, 'Doctor').map((val,index) => {
+                        {(roomValue!=='') ?
+                             fillValues(database,'Room', roomValue, 'Doctor').map((val,index) => {
                             return <option value={val}></option>
                              }) : commonValues(database, 'Doctor').map((val,index) =>{
                             return <option value={val}></option>
@@ -222,8 +228,8 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                     <label htmlFor="Reason">Priežastis:</label>
                     <input type="text" placeholder="Priežastis" name="Reason" id="Reason" list="reasSuggest" value={reasonValue} onChange={updateReason} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='reasSuggest'>
-                        {(doctorValue!=='') ?
-                             fillValues(database,'Doctor', doctorValue, 'Reason').map((val,index) => {
+                        {(roomValue!=='') ?
+                             fillValues(database,'Room', roomValue, 'Reason').map((val,index) => {
                             return <option value={val}></option>
                              }) : commonValues(database, 'Reason').map((val,index) =>{
                             return <option value={val}></option>

@@ -10,6 +10,7 @@
         padding: 0 5px;
         border-left: 1px solid rgb(228, 226, 226);
         min-height: 36px;
+        font-size: 14px;
     }
     .is-disabled {
         display: none;
@@ -26,13 +27,19 @@
     cursor: pointer;
 }
 .col-custom {
-    width: calc((91.6% - 45px)/9);
+    width: calc((91.6% - 225px)/8);
 }
 .col-id {
     width: 45px;
 }
+.col-room {
+    width: 80px;
+}
+.col-passTime{
+    width: 100px;
+}
 .col-consilium {
-    width: calc((91.6% - 45px)/8);
+    width: calc((91.6% - 225px)/7);
 }
 .planned {
 background-color: rgb(245, 239, 187);
