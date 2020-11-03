@@ -14,6 +14,7 @@ const ConsiliumExtraDataForm = (RecID) => {
     const [reasonValue, setReason] = useState('');
     const [passTimeValue, setPassTime] = useState('');
     const [acceptByValue, setAcceptBy] = useState('');
+    const [commentValue, setComment] = useState('');
 
     const updateTime = (event) => {
         const { value } = event.target;
@@ -60,9 +61,14 @@ const ConsiliumExtraDataForm = (RecID) => {
         setAcceptBy(value);
     }
 
+    const updateComment = (event) => {
+        const { value } = event.target;
+        setComment(value);
+    }
+
     const onSaveConsilium = () => {
-        const record = {ConsId: RecID.RecID ,Time: timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue,};
-        fetch(`http://172.18.218.23:5001/consilium/addextra?ConsId=${record.ConsId}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}`)
+        const record = {ConsId: RecID.RecID ,Time: timeValue, Department: departmentValue, Room:roomValue, Patient:patientValue, Doctor:doctorValue, Specialist:specialistValue, Reason:reasonValue, PassTime:passTimeValue, AcceptBy:acceptByValue, Comment:commentValue};
+        fetch(`http://172.18.218.23:5001/consilium/addextra?ConsId=${record.ConsId}&Time=${record.Time}&Department=${record.Department}&Room=${record.Room}&Patient=${record.Patient}&Doctor=${record.Doctor}&Specialist=${record.Specialist}&Reason=${record.Reason}&PassTime=${record.PassTime}&AcceptBy=${record.AcceptBy}&Comment=${record.Comment}`)
         .then(response => response.json()).catch(err => console.error(err));
         window.location.reload(false);
     }
@@ -96,6 +102,9 @@ const ConsiliumExtraDataForm = (RecID) => {
             </div>
             <div>
                 <input type="text" placeholder='Prieme' name="AcceptBy" value={acceptByValue} onChange={updateAcceptBy} required/>
+            </div>
+            <div>
+                <input type="text" placeholder='Komentaras' name="Comment" value={commentValue} onChange={updateComment}/>
             </div>
             <button onClick={onSaveConsilium} onMouseOver={e => (e.currentTarget.firstChild.src = saveWhite)} onMouseOut={e => (e.currentTarget.firstChild.src = saveBlack)}><img src={saveBlack} alt='V'/></button>
         </div>

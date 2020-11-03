@@ -83,8 +83,8 @@ app.get('/consilium/add', (req, res) => {
 });
 
 app.get('/consilium/addextra', (req, res) => {
-  const {ConsId,Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const INSERT_CONSIL_QUERY = `INSERT INTO ConsiliumExtras (ConsId, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy) VALUES ('${ConsId}', '${Time}', '${toTitleCase(Department)}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}') `;
+  const {ConsId,Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const INSERT_CONSIL_QUERY = `INSERT INTO ConsiliumExtras (ConsId, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment) VALUES ('${ConsId}', '${Time}', '${toTitleCase(Department)}', '${Room}', '${toTitleCase(Patient)}', '${toTitleCase(Doctor)}', '${toTitleCase(Specialist)}', '${toTitleCase(Reason)}', '${PassTime}', '${toTitleCase(AcceptBy)}', '${Comment}') `;
   pool.query(INSERT_CONSIL_QUERY, (err, results) =>{
     console.log(err);
     pool.end();
@@ -121,8 +121,8 @@ app.get('/consilium/edit', (req, res) => {
 });
 
 app.get('/consilium/editextra', (req, res) => {
-  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy} = req.query;
-  const EDIT_EXTRAS_QUERY = `UPDATE ConsiliumExtras SET Time='${Time}', Department='${toTitleCase(Department)}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}' WHERE ID='${ID}' `;
+  const {ID, Time, Department, Room, Patient, Doctor, Specialist, Reason, PassTime, AcceptBy, Comment} = req.query;
+  const EDIT_EXTRAS_QUERY = `UPDATE ConsiliumExtras SET Time='${Time}', Department='${toTitleCase(Department)}', Room='${Room}', Patient='${toTitleCase(Patient)}', Doctor='${toTitleCase(Doctor)}', Specialist='${toTitleCase(Specialist)}', Reason='${toTitleCase(Reason)}', PassTime='${PassTime}', AcceptBy='${toTitleCase(AcceptBy)}', Comment='${Comment}' WHERE ID='${ID}' `;
   pool.query(EDIT_EXTRAS_QUERY, (err, results) =>{
     console.log(err);
     pool.end();

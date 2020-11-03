@@ -46,6 +46,12 @@
                 overflow: hidden;
             }
         }
+        .room {
+            max-width: 80px;
+        }
+        .passTime {
+            max-width: 80px;
+        }
     }
     .disabled {
         display: none;

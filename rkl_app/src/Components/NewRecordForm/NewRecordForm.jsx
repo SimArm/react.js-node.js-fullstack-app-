@@ -184,7 +184,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                         <option value="Planinis">Planinis</option>
                     </select>
                 </div>
-                <div>
+                <div className='room'>
                     <label htmlFor="Room">Palata:</label>
                     <input type="text" placeholder="Palata" name="Room" id="Room" list="rSuggest" value={roomValue} onChange={updateRoom} autoComplete="off" onKeyDown={handleEnter}/>
                     <datalist id='rSuggest'>
@@ -236,7 +236,7 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                         })}
                     </datalist>
                 </div>
-                <div>
+                <div className='passTime'>
                     <label htmlFor="PassTime">Perdavimo Laikas:</label>
                     <input type="time" name="PassTime" id="PassTime" onChange={updatePassTime} onKeyDown={handleEnter}/>
                 </div>
@@ -251,6 +251,10 @@ const NewRecordForm = ({ConsiliumTab, dataDB}) => {
                             return <option value={val}></option>
                         })}
                     </datalist>
+                </div>
+                <div>
+                    <label htmlFor="Comment">Komentaras:</label>
+                    <input type="text" placeholder="Komentaras" name="Comment" id="Comment" value={commentValue} onChange={updateComment} autoComplete="off" onKeyDown={handleEnter}/>
                 </div>
                 <button onClick={ConsiliumTab ? onSaveConsilium : onSaveConsultation}>Saugoti</button>
             </form>
